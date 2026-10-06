@@ -7,11 +7,11 @@ The games in programs/rathje/ are always included.
 """
 import sys, os, json, glob
 TITLES = {
- '17+4':'17 + 4 (Blackjack)','BATTLE':'Battle','BIORYTHM':'Biorhythm','BLOCKADE':'Blockade','CALC':'Calculator',
+ '17+4':'17 + 4 (Blackjack)','BATTLE':'Battle','BIORYTHM':'Biorhythm (with Days)','BLOCKADE':'Blockade','CALC':'Calculator',
  'CODE':'Code breaker','DAYS':'Days between dates','DIAGONALS':'Diagonals','HAL9000':'HAL 9000','HANOI':'Towers of Hanoi',
  'HELLO':'Hello','HUNDRED':'Hundred','LAWINE':'Lawine (Avalanche)','LUNAR':'Lunar Lander','MORSE':'Morse encoder',
  'NIMTWO':'Nim 2','NUMGUESS':'Number guessing','POWERS':'Powers','PRIMES-ENUM':'Prime enumerator','PRIMES':'Prime tester',
- 'RACING':'Racing','RESISTOR':'Resistor decoder','SINUS':'Sine','SUPERDIV':'Super division','TITATO':'Tic-Tac-Toe','WEEKDAY':'Weekday',
+ 'RACING':'Racing','RESISTOR':'Resistor decoder','SINUS':'Sine','SUPERDIV':'Super division','TITATO':'Tic-Tac-Toe','WEEKDAY':'Weekday (with Days)',
 }
 SKIP = {'HAL9000', 'HELLO'}          # need the speech synthesizer
 SOUND = {'SOUND': 'Sound: scale', 'SEFFECT': 'Sound: effect', 'SEQUENCER': 'Sound: sequencer'}
@@ -28,6 +28,8 @@ for d in sys.argv[1:]:
         name = os.path.splitext(os.path.basename(f))[0]
         if name in SKIP or any(o['name'] == name for o in out): continue
         text = open(f, errors='replace').read()
+        if name in ('WEEKDAY', 'BIORYTHM'):     # these are additions to DAYS: load them on top of it
+            text = open(os.path.join(os.path.dirname(f), 'DAYS.MIC')).read() + '\n# ---- addition, from address 51 ----\n' + text
         if name in TITLES: out.append({'name': name, 'title': TITLES[name], 'group': 'From the Busch manuals', 'text': text})
         elif name in SOUND: out.append({'name': name, 'title': SOUND[name], 'group': 'PicoRAM 2090 sound demos', 'text': text})
 for f in sorted(glob.glob('programs/rathje/*.MIC')):
