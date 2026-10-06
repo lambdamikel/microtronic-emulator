@@ -159,3 +159,9 @@ footer ul { margin: 0 0 8px; padding-left: 18px; font-size: .88rem; color: var(-
 footer li { margin-bottom: 4px; }
 footer a { color: var(--accent); }
 .help a { color: var(--accent); }
+.taster.piezo { background: linear-gradient(180deg, #f3f2ee, #dddbd4); box-shadow: 0 0 0 .32cqw #e2532b inset, 0 .3cqw .7cqw rgba(0,0,0,.7); }
+.taster.piezo b { position: absolute; left: 50%; top: .4cqw; width: 1.5cqw; height: 1.5cqw; margin-left: -.75cqw; border-radius: 50%; background: radial-gradient(circle, #6b6d70 0 12%, #111 16% 55%, #2c2d30 60% 75%, #0a0a0b 80%); }
+.taster.piezo span { font-size: .78cqw; color: #777; }
+.taster.piezo select { font-size: .85cqw; }
+#status a { color: var(--accent); }
+#tools .check select { flex: 0 1 auto; }

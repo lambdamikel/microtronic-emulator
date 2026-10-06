@@ -48,6 +48,7 @@
     }
     // DOT outputs sit behind inverting drivers: LED on while R7..R10 is low.  Flag LEDs are driven directly.
     const vals = [1 - led[0], 1 - led[1], 1 - led[2], 1 - led[3], led[4], led[5], (Math.floor(m.cycles * 2 / m.cps) & 1)];
+    if (typeof sound !== "undefined") sound.piezo(piezoOut >= 0 ? vals[piezoOut] : 0);
     const els = [...dotLeds, ...flagLeds, clkLed];
     for (let i = 0; i < 7; i++) {
       const lv = ledLevel[i] = ledLevel[i] + (vals[i] - ledLevel[i]) * 0.6;
@@ -110,6 +111,7 @@
   function drawWires() {
     for (const b of ["G", "H"]) {
       const v = wire[b].value, path = $("wire" + b), plug = $("plug" + b);
+      $("peg" + b).setAttribute("r", v === "" ? 0 : 0.75);          // yellow peg on the block's terminal
       if (v === "") { path.setAttribute("d", ""); plug.setAttribute("r", 0); continue; }
       const x = JACKX[+v] + (b === "H" ? 0.25 : -0.25), x0 = TERM[b];
       path.setAttribute("d", `M${x0} ${TERMY} C ${x0 + 4} ${b === "G" ? 1.2 : 2}, ${x - 1} ${b === "G" ? 2 : 3}, ${x} ${JACKY}`);
@@ -141,9 +143,46 @@
   }
   $("clkjack").addEventListener("click", () => setClockCable(m.clockInput >= 0 ? "" : "3"));
   $("clkcable").addEventListener("change", e => { setClockCable(e.target.value); e.target.blur(); });
+  // piezo buzzer block: wired from one of the outputs (other leg to GND); it sounds while that output is on
+  const OUTX = [53.8, 56.48, 59.12, 61.78], GNDX = 50.15;
+  const setPlug = (id, x) => { const c = $(id); if (x === null) c.setAttribute("r", 0); else { c.setAttribute("cx", x); c.setAttribute("cy", JACKY); c.setAttribute("r", 0.75); } };
+  let piezoOut = -1;
+  function setPiezo(v) {
+    piezoOut = v === "" ? -1 : +v; $("piezowire").value = v;
+    $("pegP1").setAttribute("r", v === "" ? 0 : 0.75); $("pegP2").setAttribute("r", v === "" ? 0 : 0.75);
+    if (v === "") { $("wireP").setAttribute("d", ""); $("wireN").setAttribute("d", ""); setPlug("plugP", null); setPlug("plugN", null); }
+    else {
+      const x = OUTX[+v];
+      $("wireP").setAttribute("d", `M56.79 ${TERMY} C 60.5 5.2, ${x + 2.2} 8.6, ${x} ${JACKY}`);
+      $("wireN").setAttribute("d", `M49.61 ${TERMY} C 47.4 6, 48 10, ${GNDX} ${JACKY}`);
+      setPlug("plugP", x); setPlug("plugN", GNDX);
+    }
+    try { localStorage.setItem("microtronic2090.piezo", v); } catch (_) {}
+  }
+  $("piezowire").addEventListener("change", e => { setPiezo(e.target.value); e.target.blur(); });
+  // patch cable from an output to an input
+  function setPatch(o, i) {
+    $("patchout").value = o; $("patchin").value = i;
+    m.patches = o === "" ? [] : [[+o, +i]];
+    if (o === "") { $("wireO").setAttribute("d", ""); setPlug("plugO1", null); setPlug("plugO2", null); }
+    else {
+      const x1 = OUTX[+o] + 0.3, x2 = JACKX[+i] + 0.3;
+      $("wireO").setAttribute("d", `M${x1} ${JACKY} C ${x1 + 1} 16.5, ${x2 - 1} 16.5, ${x2} ${JACKY}`);
+      setPlug("plugO1", x1); setPlug("plugO2", x2);
+    }
+    try { localStorage.setItem("microtronic2090.patch", o + "," + i); } catch (_) {}
+  }
+  const patchChanged = () => setPatch($("patchout").value, $("patchin").value);
+  $("patchout").addEventListener("change", patchChanged); $("patchin").addEventListener("change", patchChanged);
+  { let pz = "3", pt = ",3";
+    try { const a = localStorage.getItem("microtronic2090.piezo"), b = localStorage.getItem("microtronic2090.patch"); if (a !== null) pz = a; if (b) pt = b; } catch (_) {}
+    setPiezo(pz); const [o, i] = pt.split(","); setPatch(o || "", i || "3"); }
 
   // ------------------------------------------------------------------ programs
-  const status = t => { $("status").textContent = t; };
+  function status(t, linkText, url) {
+    const el = $("status"); el.textContent = t;
+    if (url) { const a = document.createElement("a"); a.href = url; a.target = "_blank"; a.rel = "noopener"; a.textContent = linkText; el.append(" ", a); }
+  }
   function parseMIC(text) {                      // -> [[address, word], ...]; tolerant of the usual OCR slips
     const out = []; let a = 0;
     for (let line of text.split(/\r?\n/)) {
@@ -160,7 +199,7 @@
     return out;
     function fix(s) { return s.replace(/[OoQ]/g, "0").replace(/[Il]/g, "1").toUpperCase(); }
   }
-  function loadText(text, name, run) {
+  function loadText(text, name, run, entry) {
     let words;
     try { words = parseMIC(text); } catch (err) { status(`${name}: ${err.message}`); return; }
     if (!words.length) { status(`${name}: no instructions found`); return; }
@@ -168,13 +207,25 @@
     for (let a = 0; a < 256; a++) m.writeWord(a, 0);
     for (const [a, w] of words) m.writeWord(a, w);
     typeKeys(run ? ["HALT", "NEXT", "0", "0", "RUN"] : ["HALT", "NEXT", "0", "0"], BOOT);
-    status(`${name}: ${words.length} instructions loaded${run ? ", running from 00" : ""}.`);
+    let msg = `${name}: ${words.length} instructions loaded${run ? ", running from 00" : ""}.`;
+    if (entry && entry.setup) {                      // wire up what this program needs
+      const w = [], su = entry.setup;
+      if (su.piezo !== undefined) { setPiezo(String(su.piezo)); w.push(`piezo buzzer on output ${su.piezo + 1}`); }
+      for (const b of ["G", "H"]) if (su[b] !== undefined) { wire[b].value = String(su[b]); wire[b].dispatchEvent(new Event("change")); w.push(`key ${b} on input ${su[b] + 1}`); }
+      if (su.patch) { setPatch(String(su.patch[0]), String(su.patch[1])); w.push(`cable from output ${su.patch[0] + 1} to input ${su.patch[1] + 1}`); }
+      if (w.length) msg += ` Wired for it: ${w.join(", ")}.`;
+    }
+    if (entry && entry.author) status(`${msg} © ${entry.author} —`, "rules and instructions", entry.url); else status(msg);
   }
   const lib = $("library");
-  MICROTRONIC_PROGRAMS.forEach((p, i) => lib.add(new Option(p.title, i)));
+  { const groups = {};
+    MICROTRONIC_PROGRAMS.forEach((p, i) => {
+      const g = groups[p.group] || (groups[p.group] = lib.appendChild(Object.assign(document.createElement("optgroup"), { label: p.group })));
+      g.appendChild(new Option(p.title, i));
+    }); }
   const chosen = () => MICROTRONIC_PROGRAMS[+lib.value];
-  $("loadrun").addEventListener("click", () => loadText(chosen().text, chosen().title, true));
-  $("loadonly").addEventListener("click", () => loadText(chosen().text, chosen().title, false));
+  $("loadrun").addEventListener("click", () => loadText(chosen().text, chosen().title, true, chosen()));
+  $("loadonly").addEventListener("click", () => loadText(chosen().text, chosen().title, false, chosen()));
   $("openfile").addEventListener("click", () => $("file").click());
   $("file").addEventListener("change", async e => {
     const f = e.target.files[0]; if (!f) return;
@@ -220,7 +271,14 @@
       else if (o === 0 && h === l) arg(l);
       else if (o === 3 && h === 15) arg(m.vmReg(l));
     }
-    return { wake, fetched, apply, off() { mode = null; octave = null; tone(0); } };
+    // piezo buzzer: a second, fixed-pitch voice whose loudness follows how long its output was on
+    let pOsc = null, pGain = null;
+    function piezo(level) {
+      if (!ctx) return;
+      if (!pOsc) { pGain = ctx.createGain(); pGain.gain.value = 0; pGain.connect(ctx.destination); pOsc = ctx.createOscillator(); pOsc.type = "square"; pOsc.frequency.value = 2400; pOsc.connect(pGain); pOsc.start(); }
+      pGain.gain.setTargetAtTime($("sound").checked ? 0.035 * level : 0, ctx.currentTime, 0.006);
+    }
+    return { wake, fetched, apply, piezo, off() { mode = null; octave = null; tone(0); } };
   })();
   m.onFetch = sound.fetched;
   ["pointerdown", "keydown"].forEach(t => addEventListener(t, sound.wake, { capture: true }));
@@ -304,7 +362,7 @@
     const sp = q.get("speed"), b = sp && [...$("speeds").children].find(x => x.dataset.speed === sp);
     if (b) b.click();
     const name = (q.get("load") || "").toUpperCase(), i = MICROTRONIC_PROGRAMS.findIndex(p => p.name.toUpperCase() === name);
-    if (i >= 0) { lib.value = i; loadText(chosen().text, chosen().title, q.get("run") !== "0"); }
+    if (i >= 0) { lib.value = i; loadText(chosen().text, chosen().title, q.get("run") !== "0", chosen()); }
     // report programs that do not parse (development aid)
     if (q.has("check")) status(MICROTRONIC_PROGRAMS.map(p => { try { return parseMIC(p.text).length ? "" : p.name + ": empty"; } catch (e) { return p.name + ": " + e.message; } }).filter(Boolean).join(" | ") || "all programs parse");
   })();

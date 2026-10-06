@@ -22,14 +22,16 @@
     <div class="taster" style="left:36.56cqw"><i></i><span>Taster H</span>
       <select data-wire="H" aria-label="Key H is wired to" title="Which input key H is wired to"><option value="">not wired</option><option value="0">→ In 1</option><option value="1" selected>→ In 2</option><option value="2">→ In 3</option><option value="3">→ In 4</option></select></div>
     <div class="taster" style="left:80cqw;width:7.7cqw" aria-hidden="true"><i></i><span>Widerstand</span><span>4,7 kΩ</span></div>
+    <div class="taster piezo" style="left:49.2cqw;width:8cqw"><i></i><b></b><span>Piezosummer</span>
+      <select id="piezowire" aria-label="Piezo buzzer is wired to" title="Which output the piezo buzzer is wired to"><option value="">not wired</option><option value="0">← Out 1</option><option value="1">← Out 2</option><option value="2">← Out 3</option><option value="3" selected>← Out 4</option></select></div>
     <svg id="wires" viewBox="0 0 92.2 35.6" preserveAspectRatio="none" aria-hidden="true">
       <path class="thick" stroke="#151515" d="M9.9 7.4 C 12 12, 18 22, 21.2 35.6"/><path class="thick" stroke="#151515" d="M19.9 7 C 21 13, 25 24, 27.3 35.6"/>
       <path stroke="#c9a227" d="M27 7.2 C 27.5 14, 33 25, 35.5 35.6"/><path stroke="#c9a227" d="M37.3 7.2 C 37.2 15, 40 26, 41.4 35.6"/>
       <path stroke="#c8281e" d="M85.01 12.48 C 86 10, 88.6 8.2, 87.33 4.65"/>
       <path stroke="#c8281e" d="M80.37 4.65 C 70 -1, 48 -1, 37.12 4.65"/>
       <path stroke="#c8281e" d="M37.12 4.65 C 34 1.4, 30 1.4, 26.86 4.65"/>
-      <path id="wireC" stroke="#3aa655"/><circle id="plugC" r="0"/><path id="wireG" stroke="#e2b714"/><path id="wireH" stroke="#e08a1e"/>
-      <circle cx="85.01" cy="12.48" r=".75"/><circle id="plugG" r=".75"/><circle id="plugH" r=".75"/>
+      <path id="wireN" stroke="#1d1d1f"/><path id="wireP" stroke="#2f6fd0"/><path id="wireO" stroke="#8e5bd0"/><circle id="plugN" r="0"/><circle id="plugP" r="0"/><circle id="plugO1" r="0"/><circle id="plugO2" r="0"/><path id="wireC" stroke="#3aa655"/><circle id="plugC" r="0"/><path id="wireG" stroke="#e2b714"/><path id="wireH" stroke="#e08a1e"/>
+      <circle cx="85.01" cy="12.48" r=".75"/><circle cx="80.37" cy="4.65" r=".75"/><circle cx="87.33" cy="4.65" r=".75"/><circle cx="26.86" cy="4.65" r=".75"/><circle cx="37.12" cy="4.65" r=".75"/><circle id="pegG" cx="34.99" cy="4.65" r="0"/><circle id="pegH" cx="45.25" cy="4.65" r="0"/><circle id="pegP1" cx="49.61" cy="4.65" r="0"/><circle id="pegP2" cx="56.79" cy="4.65" r="0"/><circle id="plugG" r=".75"/><circle id="plugH" r=".75"/>
     </svg>
     <div id="bayL" aria-hidden="true"></div>
     <div class="strip left" aria-hidden="true">
@@ -115,10 +117,14 @@
     <label class="check">1 Hz clock output →
       <select id="clkcable"><option value="">not connected</option><option value="0">Input 1</option><option value="1">Input 2</option><option value="2">Input 3</option><option value="3">Input 4 (built-in clock)</option></select></label>
     <p class="note">The firmware clock (PGM 3 set, PGM 4 show, op-code F06) counts the pulses on input 4.</p>
+    <label class="check">Output
+      <select id="patchout"><option value="">–</option><option value="0">1</option><option value="1">2</option><option value="2">3</option><option value="3">4</option></select> → Input
+      <select id="patchin"><option value="0">1</option><option value="1">2</option><option value="2">3</option><option value="3" selected>4</option></select></label>
+    <p class="note">A cable from an output to an input, so a program can read back what it wrote.</p>
     <h2 style="margin-top:12px">Sound</h2>
-    <label class="check"><input type="checkbox" id="sound" checked> PicoRAM sound: op-code <code>50D</code> plays a note</label>
+    <label class="check"><input type="checkbox" id="sound" checked> Sound on</label>
     <p class="note" id="tone">Silent.</p>
-    <p class="note">As on the PicoRAM 2090: <code>50D</code>, then octave and note, each given as <code>0xx</code> (literal) or <code>3Fx</code> (from register x).</p>
+    <p class="note">The piezo buzzer sounds while its output is on. PicoRAM 2090 notes: op-code <code>50D</code>, then octave and note, each given as <code>0xx</code> (literal) or <code>3Fx</code> (from register x).</p>
   </div>
 
   <div class="panel">
@@ -152,6 +158,11 @@
     <li><b>Manuals</b> — the Microtronic manuals in English translation:
       <a href="https://lambdamikel.github.io/microtronic-2090-manuals-english/">read online</a> ·
       <a href="https://github.com/lambdamikel/microtronic-2090-manuals-english">github.com/lambdamikel/microtronic-2090-manuals-english</a>.</li>
+    <li><b>Games by Björn Rathje</b> — Monarch2090, Kniffel2090 and Mensch2090 are © Björn Rathje and are included here with attribution, unchanged; rules and playing instructions are in his repositories:
+      <a href="https://github.com/rab-berlin/Monarch2090">Monarch2090</a> ·
+      <a href="https://github.com/rab-berlin/Kniffel2090">Kniffel2090</a> ·
+      <a href="https://github.com/rab-berlin/Mensch2090">Mensch2090</a>
+      (<a href="https://github.com/rab-berlin">github.com/rab-berlin</a>).</li>
     <li>Programs, original manuals and schematic: <a href="https://github.com/lambdamikel/Busch-2090">Busch-2090</a>.
       Sound op-code: <a href="https://github.com/lambdamikel/picoram2090">PicoRAM 2090</a>.
       Annotated firmware: <a href="https://github.com/lambdamikel/microtronic-firmware-annotated">microtronic-firmware-annotated</a>.</li>

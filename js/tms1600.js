@@ -47,6 +47,7 @@ class Microtronic {
     this.keys = new Uint8Array(6);         // per column R0..R5: K row bits of held keys
     this.din = 0;                          // external inputs IN1..IN4
     this.onFetch = null;                   // optional observer: called with the address of each instruction read
+    this.patches = [];                     // patch cables [output 0..3, input 0..3]: the input follows the output
     this.clockInput = -1;                  // patch cable: 1 Hz clock output -> input bit 0..3 (-1 = not connected)
     this.cps = 500000 / 6;                 // instruction cycles per second (500 kHz RC osc)
     // light integration: on-time (in cycles) per LED since last collect()
@@ -88,6 +89,7 @@ class Microtronic {
     for (let c = 0; c < 6; c++) if (R[c]) k |= this.keys[c];
     if (R[6]) {
       let d = this.din;
+      for (const [o, i] of this.patches) if (!R[7 + o]) d |= 1 << i;   // an output is high while its R line is low
       if (this.clockInput >= 0 && (Math.floor(this.cycles * 2 / this.cps) & 1)) d |= 1 << this.clockInput;
       k |= d;
     }
