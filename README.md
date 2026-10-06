@@ -86,7 +86,7 @@ Program memory is kept in the browser's local storage between visits.
   [repository](https://github.com/lambdamikel/microtronic-2090-manuals-english).
 - **Games by Björn Rathje** — Monarch2090 (the 1972 *Rotomat Monarch* slot machine),
   Kniffel2090 (Yahtzee) and Mensch2090 (Ludo) are © Björn Rathje. They are included
-  unchanged, with attribution, in `programs/rathje/`; rules and playing instructions are
+  unchanged, with his permission, in `programs/rathje/`; rules and playing instructions are
   in his repositories: [Monarch2090](https://github.com/rab-berlin/Monarch2090),
   [Kniffel2090](https://github.com/rab-berlin/Kniffel2090),
   [Mensch2090](https://github.com/rab-berlin/Mensch2090)
