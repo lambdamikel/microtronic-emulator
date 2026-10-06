@@ -80,3 +80,19 @@ Program memory is kept in the browser's local storage between visits.
 - Programs, original manuals and schematic: [Busch-2090](https://github.com/lambdamikel/Busch-2090).
   Sound op-code: [PicoRAM 2090](https://github.com/lambdamikel/picoram2090).
   Annotated firmware: [microtronic-firmware-annotated](https://github.com/lambdamikel/microtronic-firmware-annotated).
+
+## Made with Claude
+
+The emulator core, the board model, the GUI and the board drawings were written
+by Claude Opus 5.5 (Claude Code), working with Michael Wessel, who supplied the
+photos, the hardware knowledge and the review.
+
+## License
+
+The emulator (code, drawings, documentation) is licensed under the
+[GNU General Public License v3](LICENSE).
+
+**Not covered by the GPL:** the Microtronic firmware ROM in `js/rom.js` is
+© Busch GmbH and is included with the permission of Jörg Vallen. The bundled
+Microtronic programs in `js/programs.js` come from the Busch manuals and the
+projects named above and remain the property of their authors.
