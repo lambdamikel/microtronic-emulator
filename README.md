@@ -71,6 +71,7 @@ Program memory is kept in the browser's local storage between visits.
 - **Microtronic Phoenix** — the hardware emulator that first ran this ROM, with
   Jason T. Jacques' TMS1xxx emulator, whose CPU semantics and output-PLA table
   this emulator follows: <https://github.com/lambdamikel/microtronic-phoenix>,
+  the [Phoenix project page on Hackaday.io](https://hackaday.io/project/202835-microtronic-phoenix),
   and [Jason's write-up](https://jsonj.co.uk/project/microtronic/).
 - **Busch GmbH and Jörg Vallen** — the firmware ROM is © Busch; it was published
   with the kind permission of Jörg Vallen, co-designer of the Microtronic and author of its manuals.
