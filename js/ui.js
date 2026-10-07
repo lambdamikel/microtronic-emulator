@@ -377,7 +377,7 @@
       `PC ${hex(pc, 2)}   ${m.vmRunning ? "RUN " : "HALT"}   carry ${fl & 1}  zero ${(fl >> 1) & 1}\n` +
       `      0 1 2 3 4 5 6 7 8 9 A B C D E F\n` +
       `work  ${r}\nmem   ${x}\n` +
-      `in  1-4  ${bits4(m.inputPins)}\nout 1-4  ${bits4(m.outputPins)}`;
+      `in  1-4  ${bits4(m.inputPins)}\nout 1-4  ${bits4(m.outputPins)}\nRET (F07) returns to ${hex(m.vmReturn, 2)}`;
     if (!editing) for (let a = 0; a < 256; a++) if (shown[a] !== m.readWord(a)) renderRow(a);
     if (pc !== pcRow) {
       if (pcRow >= 0) rows[pcRow].classList.remove("pc");

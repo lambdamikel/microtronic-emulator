@@ -68,6 +68,7 @@ class Microtronic {
   }
   get outputPins() { const R = this.R; return (R[7] ? 0 : 1) | (R[8] ? 0 : 2) | (R[9] ? 0 : 4) | (R[10] ? 0 : 8); }
   get vmPC() { return (this.ram[37] << 4) | this.ram[36]; }
+  get vmReturn() { return (((this.ram[30] << 4) | this.ram[29]) + 1) & 255; }   // where RET (F07) continues: the firmware stores the CALL's own address
   get vmRunning() { return this.ram[8] === 1; }
   vmReg(i) { return this.ram[112 + i]; }       // working registers  (file 7)
   vmMem(i) { return this.ram[96 + i]; }        // memory registers   (file 6)
