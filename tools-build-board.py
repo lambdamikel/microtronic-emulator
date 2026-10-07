@@ -197,7 +197,7 @@ def board2095():
     # slide switch, start key frame, logo, ribbon connector
     add('<rect x="628" y="95" width="115" height="77" rx="3" fill="#cfc9bb"/><rect x="646" y="118" width="80" height="32" fill="#4a4a4a"/><rect x="653" y="114" width="52" height="40" rx="3" fill="#141516"/>')
     for k in range(5): add(f'<rect x="{660 + k*9}" y="118" width="3" height="32" fill="#3a3b3d"/>')
-    add('<rect x="830" y="92" width="103" height="98" rx="5" fill="#141516"/>')
+    add('<rect x="830" y="90" width="100" height="103" rx="5" fill="#141516"/>')
     logo(948, 38, 78, '2095')
     add('<rect x="1038" y="168" width="58" height="177" rx="4" fill="#18191b"/>')
     add('</svg>')

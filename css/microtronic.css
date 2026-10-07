@@ -46,7 +46,7 @@ main { max-width: 1240px; margin: 0 auto; padding: 10px 16px; display: grid; gap
 .module { align-items: flex-end !important; padding-right: .7cqw; justify-content: center !important; }
 #pcb95 { position: absolute; left: 4.72cqw; width: 36.46cqw; top: 13.3cqw; height: 19.26cqw; box-shadow: 0 .3cqw .8cqw rgba(0,0,0,.6); }
 .pcbsvg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-#pcb95 .start { position: absolute; left: 27.1cqw; top: 2.88cqw; width: 2.8cqw; height: 2.62cqw; border-radius: .2cqw; background: radial-gradient(circle at 50% 45%, #5fd98a 0 30%, #2fb765 60%, #1a8e48); }
+#pcb95 .start { position: absolute; left: 27.18cqw; top: 2.99cqw; width: 2.6cqw; height: 2.5cqw; border-radius: .2cqw; background: radial-gradient(circle at 50% 48%, #63dc8e 0 32%, #36bd6b 62%, #1f9a50); }
 /* ribbon cable from the 2095 connector to the interface socket on the 2090 board */
 #ribbon { position: absolute; left: 39.34cqw; width: 14.6cqw; top: 19cqw; height: 4.4cqw; z-index: 3 !important;
   background: repeating-linear-gradient(180deg, #4a7bdc 0 .2cqw, #2f5cb6 .2cqw .3cqw); box-shadow: 0 .3cqw .6cqw rgba(0,0,0,.5); }
@@ -67,8 +67,8 @@ button.jack.on { width: 1.6cqw; height: 1.6cqw; background: radial-gradient(circ
   background: radial-gradient(circle at 35% 30%, rgb(255, calc(110 + 120 * var(--on)), calc(100 + 90 * var(--on))) 0, rgb(calc(110 + 145 * var(--on)), calc(14 + 22 * var(--on)), calc(14 + 12 * var(--on))) 55%, #430909 100%);
   box-shadow: 0 0 calc(1.6cqw * var(--on)) calc(.4cqw * var(--on)) rgba(255, 50, 30, calc(.85 * var(--on))), 0 0 0 .1cqw rgba(0,0,0,.5); }
 #dotleds .led { top: 1.66cqw; }
-#reset { left: 12.21cqw; top: 2.77cqw; width: 2.61cqw; height: 2.5cqw; border: 0; border-radius: .2cqw; cursor: pointer; padding: 0;
-  background: radial-gradient(circle at 50% 50%, #63dc8e 0 32%, #36bd6b 62%, #1f9a50); }
+#reset { left: 12.13cqw; top: 2.94cqw; width: 2.6cqw; height: 2.5cqw; border: 0; border-radius: .2cqw; cursor: pointer; padding: 0;
+  background: radial-gradient(circle at 50% 48%, #63dc8e 0 32%, #36bd6b 62%, #1f9a50); }
 #reset:active { transform: scale(.94); }
 #clkled { left: 28.4cqw; top: 1.76cqw; }
 .logo { left: 31.1cqw; top: 1.5cqw; width: 2.6cqw; color: #49d8b4; font: 700 .68cqw/1 Arial, sans-serif; text-align: center; }
@@ -95,7 +95,7 @@ button.jack.on { width: 1.6cqw; height: 1.6cqw; background: radial-gradient(circ
 .screw { width: 1cqw; height: 1cqw; top: 8.7cqw; border-radius: 50%; transform: translate(-50%, -50%); background: radial-gradient(circle at 40% 35%, #555, #101011 70%); }
 #badge { left: 5.5cqw; top: 3cqw; width: 10.7cqw; height: 5.5cqw; background: linear-gradient(180deg, #c9c9c7, #a9aaab); color: #101113; border-radius: .15cqw;
   display: flex; flex-direction: column; justify-content: center; align-items: center; line-height: 1; }
-#badge::before { content: ""; position: absolute; left: 0; right: .45cqw; top: .62cqw; bottom: .62cqw; border: solid #17181a; border-width: .13cqw 0; }
+#badge::before { content: ""; position: absolute; left: .45cqw; right: .45cqw; top: .62cqw; bottom: .62cqw; border: solid #17181a; border-width: .13cqw 0; }
 #badge b { font: italic 900 1.7cqw/1 "Arial Black", "Helvetica Neue", Arial, sans-serif; letter-spacing: -.05em; color: #111; }
 #badge span { margin-top: .5cqw; font: 700 1.12cqw/1 "Trebuchet MS", Verdana, Arial, sans-serif; letter-spacing: .03em; color: #151617; }
 .din { top: 5.65cqw; width: 4.1cqw; height: 4.1cqw; border-radius: 50%; transform: translate(-50%, -50%);
