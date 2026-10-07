@@ -48,10 +48,10 @@ main { max-width: 1240px; margin: 0 auto; padding: 10px 16px; display: grid; gap
 .pcbsvg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 #pcb95 .start { position: absolute; left: 27.1cqw; top: 2.88cqw; width: 2.8cqw; height: 2.62cqw; border-radius: .2cqw; background: radial-gradient(circle at 50% 45%, #5fd98a 0 30%, #2fb765 60%, #1a8e48); }
 /* ribbon cable from the 2095 connector to the interface socket on the 2090 board */
-#ribbon { position: absolute; left: 39.34cqw; width: 14.24cqw; top: 19cqw; height: 4.4cqw; z-index: 3 !important;
+#ribbon { position: absolute; left: 39.34cqw; width: 14.6cqw; top: 19cqw; height: 4.4cqw; z-index: 3 !important;
   background: repeating-linear-gradient(180deg, #4a7bdc 0 .2cqw, #2f5cb6 .2cqw .3cqw); box-shadow: 0 .3cqw .6cqw rgba(0,0,0,.5); }
 #ribbon::before, #ribbon::after, #ribbon b { content: ""; position: absolute; top: -.75cqw; bottom: -.75cqw; width: 1.7cqw; background: linear-gradient(90deg, #242527, #131415); border-radius: .15cqw; box-shadow: 0 .2cqw .4cqw rgba(0,0,0,.5); }
-#ribbon::before { left: -.85cqw; } #ribbon::after { right: -.85cqw; } #ribbon b { display: none; }
+#ribbon::before { left: -.85cqw; } #ribbon::after { right: -1cqw; width: 2.1cqw; } #ribbon b { display: none; }
 #bayR { position: absolute; left: 46.9cqw; width: 45.1cqw; top: 13.1cqw; bottom: 0; background: linear-gradient(180deg, #1c1d1f, #131415); }
 #tray .strip { left: 46.9cqw; width: 45.1cqw; top: 9.2cqw; height: 4.1cqw; z-index: 2 !important; font-size: .98cqw; }
 #tray .strip.left { left: .1cqw; width: 45.45cqw; }
@@ -95,9 +95,9 @@ button.jack.on { width: 1.6cqw; height: 1.6cqw; background: radial-gradient(circ
 .screw { width: 1cqw; height: 1cqw; top: 8.7cqw; border-radius: 50%; transform: translate(-50%, -50%); background: radial-gradient(circle at 40% 35%, #555, #101011 70%); }
 #badge { left: 5.5cqw; top: 3cqw; width: 10.7cqw; height: 5.5cqw; background: linear-gradient(180deg, #c9c9c7, #a9aaab); color: #101113; border-radius: .15cqw;
   display: flex; flex-direction: column; justify-content: center; align-items: center; line-height: 1; }
-#badge::before { content: ""; position: absolute; inset: .35cqw; border: .16cqw solid #17181a; border-radius: .7cqw; }
-#badge b { font: italic 900 1.7cqw/1 "Arial Black", "Helvetica Neue", Arial, sans-serif; letter-spacing: -.05em; color: #111; border-bottom: .16cqw solid #111; padding: 0 .15cqw .08cqw; }
-#badge span { margin-top: .45cqw; font: 400 1.08cqw/1 "Trebuchet MS", Verdana, Arial, sans-serif; letter-spacing: .03em; color: #151617; }
+#badge::before { content: ""; position: absolute; left: 0; right: .45cqw; top: .62cqw; bottom: .62cqw; border: solid #17181a; border-width: .13cqw 0; }
+#badge b { font: italic 900 1.7cqw/1 "Arial Black", "Helvetica Neue", Arial, sans-serif; letter-spacing: -.05em; color: #111; }
+#badge span { margin-top: .5cqw; font: 700 1.12cqw/1 "Trebuchet MS", Verdana, Arial, sans-serif; letter-spacing: .03em; color: #151617; }
 .din { top: 5.65cqw; width: 4.1cqw; height: 4.1cqw; border-radius: 50%; transform: translate(-50%, -50%);
   background:
     radial-gradient(circle at 50% 21%, #060606 0 5%, transparent 6%),
@@ -130,7 +130,7 @@ button.jack.on { width: 1.6cqw; height: 1.6cqw; background: radial-gradient(circ
 .strip.bottom { left: 5.3cqw; top: 12.5cqw; width: 63.2cqw; height: 2.8cqw; font-size: 1.12cqw; }
 
 /* ---------- tools ---------- */
-#tools { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); align-items: start; max-width: 1180px; margin: 0 auto; width: 100%; }
+#tools { display: grid; gap: 12px; grid-template-columns: minmax(0, 1fr); max-width: 1180px; margin: 0 auto; width: 100%; }
 .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; }
 .panel h2 { margin: 0 0 8px; font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
 .row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
@@ -165,3 +165,17 @@ footer a { color: var(--accent); }
 .taster.piezo select { font-size: .85cqw; }
 #status a { color: var(--accent); }
 #tools .check select { flex: 0 1 auto; }
+@media (min-width: 900px) {
+  #tools { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: auto 1fr; grid-template-areas: "prog speed inside" "keys speed inside"; }
+  #tools .panel:nth-child(1) { grid-area: prog; } #tools .panel:nth-child(2) { grid-area: speed; } #tools .panel:nth-child(3) { grid-area: inside; display: flex; flex-direction: column; } #tools .panel.help { grid-area: keys; }
+  #tools .panel:nth-child(3) #listing { flex: 1 1 230px; height: auto; min-height: 230px; }
+}
+/* hover: everything that does something lights up */
+#keypad .key:hover b { background: linear-gradient(180deg, #4a4c50, #232426); box-shadow: 0 0 0 .14cqw #060606, 0 0 0 .22cqw #e9eaec; }
+#keypad .key:hover span { font-weight: 700; }
+.redkey:hover { filter: brightness(1.25); box-shadow: 0 0 0 .4cqw #0b0b0c, 0 0 0 .5cqw #f2c81e; }
+#reset:hover { filter: brightness(1.2); box-shadow: 0 0 0 .14cqw #f2c81e; }
+button.jack:hover { box-shadow: 0 0 0 .16cqw #f2c81e; }
+.taster select:hover { border-color: #c8281e; }
+#tools button:hover, #tools select:hover { border-color: var(--accent); }
+#listing div:hover { outline: 1px solid var(--accent); outline-offset: -1px; }
