@@ -58,7 +58,7 @@ main { max-width: 1240px; margin: 0 auto; padding: 10px 16px; display: grid; gap
 .jack { position: absolute; top: 80%; width: 1.1cqw; height: 1.1cqw; margin: 0; padding: 0; border: 0; border-radius: 50%; transform: translate(-50%, -50%);
   background: radial-gradient(circle, #050505 0 38%, #5c5f63 42% 55%, #18191b 60% 78%, #8f9296 82%); }
 button.jack { cursor: pointer; }
-button.jack.on { width: 1.6cqw; height: 1.6cqw; background: radial-gradient(circle at 38% 32%, #fff3a6, #f2c81e 55%, #a98708); box-shadow: 0 .2cqw .4cqw rgba(0,0,0,.6); }
+button.jack.on { width: 1.3cqw; height: 1.3cqw; background: radial-gradient(circle at 38% 32%, #fff3a6, #f2c81e 55%, #a98708); box-shadow: 0 .2cqw .4cqw rgba(0,0,0,.6); }
 #cable { position: absolute; left: 61.6%; width: 11.5%; top: -36%; height: 110%; border: .28cqw solid #e2b714; border-bottom: 0; border-radius: 50% 50% 0 0 / 100% 100% 0 0; display: none; pointer-events: none; }
 #cable.on { display: block; }
 #pcb { position: absolute; left: 51.39cqw; width: 36.12cqw; top: 13.3cqw; height: 22.13cqw; box-shadow: 0 .3cqw .8cqw rgba(0,0,0,.6); }

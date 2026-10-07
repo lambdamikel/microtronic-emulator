@@ -138,6 +138,7 @@
     m.clockInput = v === "" ? -1 : +v; $("clkcable").value = v;
     $("clkjack").classList.toggle("on", v !== "");
     const path = $("wireC"), plug = $("plugC");
+    $("plugC0").setAttribute("r", v === "" ? 0 : 0.75);          // peg on the 1 Hz jack itself, drawn above the cable
     if (v === "") { path.setAttribute("d", ""); plug.setAttribute("r", 0); }
     else { const x = JACKX[+v]; path.setAttribute("d", `M79.87 ${JACKY} C 79.5 6.8, ${x + 0.4} 6.8, ${x} ${JACKY}`); plug.setAttribute("cx", x); plug.setAttribute("cy", JACKY); plug.setAttribute("r", 0.75); }
     try { localStorage.setItem("microtronic2090.clk", v); } catch (_) {}
@@ -319,9 +320,10 @@
   $("sound").addEventListener("change", () => { sound.apply(); sound.revib(); });
   $("soundoff").addEventListener("click", () => sound.hush(true));
   function setVib(on) { if (on && piezoOut >= 0) setPiezo("");      // both on the same outputs would sound the 2.4 kHz buzzer along with every higher note
-    $("vibon").checked = on; $("vibwires").style.display = on ? "" : "none"; $("vibblock").classList.toggle("off", !on); sound.revib(); try { localStorage.setItem("microtronic2090.vib", on ? "1" : "0"); } catch (_) {} }
+    $("vibon").checked = on; $("vibwires").style.display = $("vibpegs").style.display = on ? "" : "none"; $("vibblock").classList.toggle("off", !on); sound.revib(); try { localStorage.setItem("microtronic2090.vib", on ? "1" : "0"); } catch (_) {} }
   $("vibon").addEventListener("change", () => setVib($("vibon").checked));
   $("vibpitch").addEventListener("input", sound.revib);
+  { const g = document.createElementNS("http://www.w3.org/2000/svg", "g"); g.id = "vibpegs"; $("wires").appendChild(g); }
   { let on = false; try { on = localStorage.getItem("microtronic2090.vib") === "1"; } catch (_) {} setVib(on); }
 
   // ------------------------------------------------------------------ speed
@@ -407,6 +409,14 @@
     if (i >= 0) { lib.value = i; loadText(chosen().text, chosen().title, q.get("run") !== "0", chosen()); }
     // report programs that do not parse (development aid)
     if (q.has("check")) status(MICROTRONIC_PROGRAMS.map(p => { try { return parseMIC(p.text).length ? "" : p.name + ": empty"; } catch (e) { return p.name + ": " + e.message; } }).filter(Boolean).join(" | ") || "all programs parse");
+  })();
+
+  // pegs are drawn on top of every cable: move all of them to the end of the wiring drawing
+  (function pegsOnTop() {
+    const svg = $("wires"), g = $("vibpegs");
+    $("vibwires").querySelectorAll("circle").forEach(c => g.appendChild(c));
+    svg.querySelectorAll(":scope > circle").forEach(c => svg.appendChild(c));
+    svg.appendChild(g);
   })();
 
   // ------------------------------------------------------------------ main loop
