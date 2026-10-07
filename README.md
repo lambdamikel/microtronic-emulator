@@ -8,6 +8,8 @@ A JavaScript-only emulator of the 1981 Busch Microtronic 2090 that runs the
 **original TMS1600 firmware ROM**. Static files, no build step, no server code:
 open `index.html`, or serve the folder from GitHub Pages.
 
+Sister project: the [Kosmos CP1 emulator](https://github.com/lambdamikel/kosmos-cp1-emulator).
+
 ## What is emulated
 
 The emulation is at pin level; nothing in the firmware is patched or intercepted.
