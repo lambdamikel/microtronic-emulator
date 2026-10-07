@@ -298,7 +298,7 @@
       while (i < ANCH.length - 2 && g > Math.log(ANCH[i + 1][0])) i++;
       const [g0, s0] = ANCH[i], [g1, s1] = ANCH[i + 1];
       const semis = s0 + (s1 - s0) * (g - Math.log(g0)) / (Math.log(g1) - Math.log(g0));
-      return 261.63 * Math.pow(2, (semis + (+$("vibpitch").value)) / 12);
+      return 261.63 * Math.pow(2, (Math.round(semis) + (+$("vibpitch").value)) / 12);      // snapped to the nearest semitone
     }
     let vOsc = null, vGain = null, vVal = -1;
     function vib(v) {
@@ -306,7 +306,8 @@
       const f = $("vibon").checked ? vibHz(v) : 0;
       $("vibtone").textContent = !$("vibon").checked ? "" : f ? `Outputs = ${v.toString(16).toUpperCase()}: ${f.toFixed(0)} Hz` : `Outputs = ${v.toString(16).toUpperCase()}: no tone`;
       if (!ctx) return;
-      if (!vOsc) { vGain = ctx.createGain(); vGain.gain.value = 0; vGain.connect(out()); vOsc = ctx.createOscillator(); vOsc.type = "square"; vOsc.connect(vGain); vOsc.start(); }
+      if (!vOsc) { vGain = ctx.createGain(); vGain.gain.value = 0; const lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 1600; lp.Q.value = 0.5; vGain.connect(lp); lp.connect(out());
+        vOsc = ctx.createOscillator(); vOsc.type = "square"; vOsc.connect(vGain); vOsc.start(); }      // low-pass: a small loudspeaker, not a raw square wave
       const on = f > 0 && $("sound").checked;
       if (on) vOsc.frequency.setValueAtTime(f, ctx.currentTime);
       vGain.gain.setTargetAtTime(on ? 0.05 : 0, ctx.currentTime, 0.003);
@@ -317,7 +318,8 @@
   ["pointerdown", "keydown"].forEach(t => addEventListener(t, sound.wake, { capture: true }));
   $("sound").addEventListener("change", () => { sound.apply(); sound.revib(); });
   $("soundoff").addEventListener("click", () => sound.hush(true));
-  function setVib(on) { $("vibon").checked = on; $("vibwires").style.display = on ? "" : "none"; $("vibblock").classList.toggle("off", !on); sound.revib(); try { localStorage.setItem("microtronic2090.vib", on ? "1" : "0"); } catch (_) {} }
+  function setVib(on) { if (on && piezoOut >= 0) setPiezo("");      // both on the same outputs would sound the 2.4 kHz buzzer along with every higher note
+    $("vibon").checked = on; $("vibwires").style.display = on ? "" : "none"; $("vibblock").classList.toggle("off", !on); sound.revib(); try { localStorage.setItem("microtronic2090.vib", on ? "1" : "0"); } catch (_) {} }
   $("vibon").addEventListener("change", () => setVib($("vibon").checked));
   $("vibpitch").addEventListener("input", sound.revib);
   { let on = false; try { on = localStorage.getItem("microtronic2090.vib") === "1"; } catch (_) {} setVib(on); }
