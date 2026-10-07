@@ -165,6 +165,51 @@ const MICROTRONIC_PROGRAMS = [
 "text": "F10\n50D\n011\n3F0\n510\nC01\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n"
 },
 {
+"name": "ORGAN-LONG",
+"title": "Mini organ, long tones",
+"group": "With the tone circuit (manual Part 2)",
+"setup": {
+"vib": true
+},
+"text": "# Mini-Orgel, Lang-Ton-Version (mini organ, long tones)\n# Busch Microtronic manual Part 2, p. 52. Needs the tone circuit (multivibrator) on outputs 1-4.\n# Keys 4-F play twelve tones, key 0 is silence; keys 1-3 give no usable tone.\n\n@ 00\n\nF10\nFF0\nFE0\nC00\n"
+},
+{
+"name": "ORGAN-SHORT",
+"title": "Mini organ, short tones",
+"group": "With the tone circuit (manual Part 2)",
+"setup": {
+"vib": true
+},
+"text": "# Mini-Orgel, Kurz-Ton-Version (mini organ, short tones)\n# Busch Microtronic manual Part 2, p. 52. Needs the tone circuit (multivibrator) on outputs 1-4.\n# Each key gives one short tone. Change address 03 from 511 to 521, 541 or 581 for shorter tones.\n\n@ 00\n\nF10\nFF0\nFE0\n511\nE06\nC03\nFE1\nC00\n"
+},
+{
+"name": "COMPOSER",
+"title": "The composing computer",
+"group": "With the tone circuit (manual Part 2)",
+"setup": {
+"vib": true
+},
+"text": "# Der komponierende Computer (the composing computer / melody generator)\n# Busch Microtronic manual Part 2, p. 54. Needs the tone circuit (multivibrator) on outputs 1-4.\n# Start it, then press any digit or letter key: the computer composes random melodies.\n# Address 0D: the manual prints the mnemonic DOT 0 next to the code FED (DOT D); the code is what the text describes.\n\n@ 00\n\nF08\nFE0\nF60\nFF0\nF05\n531\n40D\nE0D\n41D\nE04\n93D\nD0D\n57D\nFED\n71E\nE04\nC0E\n"
+},
+{
+"name": "MUSICBOX",
+"title": "Music box: three melodies",
+"group": "With the tone circuit (manual Part 2)",
+"setup": {
+"vib": true
+},
+"text": "# Spiel-Uhr (electronic music box): Sentimental Journey - Haenschen klein - Du, Du liegst mir am Herzen\n# Busch Microtronic manual Part 2, p. 54-55. Needs the tone circuit (multivibrator) on outputs 1-4.\n# Plays the three melodies one after another and repeats until Reset.\n\n@ 00\n\nF02\nC0B\nFE0\n511\nE06\nC03\n902\nE09\nF07\nFE1\nF07\n112\n180\nB02\n140\nB02\n180\nB02\n140\nB02\n180\nB02\n140\nB02\n100\nB02\n180\nB02\n140\nB02\n180\nB02\n190\nB02\n180\nB02\n170\nB02\n160\nB02\n100\nB02\n180\nB02\n140\nB02\n180\nB02\n140\nB02\n170\nB02\n140\nB02\n170\nB02\n140\nB02\n180\nB02\n140\nB02\n100\nB02\n180\nB02\n190\nB02\n180\nB02\n170\nB02\n160\nB02\n140\nB02\n100\nB02\n102\n1C0\nB02\n180\nB02\n180\nB02\n1A0\nB02\n160\nB02\n160\nB02\n140\nB02\n160\nB02\n180\nB02\n1A0\nB02\n1C0\nB02\n1C0\nB02\n1C0\nB02\n100\nB02\n1C0\nB02\n180\nB02\n180\nB02\n1A0\nB02\n160\nB02\n160\nB02\n140\nB02\n180\nB02\n1C0\nB02\n1C0\nB02\n140\nB02\n100\nB02\n112\n160\nB02\n102\nB02\nB02\n102\nB02\nB02\n140\nB02\n160\nB02\n112\n190\nB02\nB02\n170\nB02\n140\nB02\n102\nB02\n112\nB02\n102\nB02\nB02\n190\nB02\n170\nB02\n112\n160\nB02\n102\nB02\n112\nB02\n102\nB02\n112\nB02\n102\nB02\nB02\n140\nB02\n160\n112\nB02\n190\nB02\nB02\n170\nB02\n102\nB02\n140\nB02\n160\nB02\n170\nB02\n1C0\nB02\n190\nB02\n170\nB02\n160\nB02\n112\n140\nB02\nB02\nB02\n100\nB02\n"
+},
+{
+"name": "LUNAR-SOUND",
+"title": "Moon Landing with sound effects",
+"group": "With the tone circuit (manual Part 2)",
+"setup": {
+"vib": true
+},
+"text": "# Mondlandung mit akustischen Effekten (Moon Landing with sound effects)\n# Manual Part 1, p. 24, with the changes and the addition from address 90 of manual Part 2, p. 56.\n# Needs the tone circuit (multivibrator) on outputs 1-4. Each ending has its own tone sequence:\n# soft landing, crash, fuel used up, lunar module drifts off.\n# Address AB: the manual prints the mnemonic ADC D next to the code FBC (ADC C); the code is used -\n# it counts the repeats of the landing tune in register C, which ADC D would never end.\n\n@ 00\n\nF02\nF08\nFE0\n142\n1F3\n114\n125\n136\n187\n178\n1A1\n02D\n03E\n04F\nF03\nF5D\nFFB\nF02\n1B1\n10F\n05D\n06E\nF03\nF5D\nFFB\nF02\n1C1\n07D\n08E\nF03\nF5D\nFFB\n10D\n10E\nF2D\nFFB\n99B\nD29\n0DE\n0BD\nC22\nF02\n10F\nF04\n6D7\nFC8\nD69\n6E8\nD69\n75D\nFCE\nD5A\n4D2\nFB3\nFB4\n4E3\nFB4\n652\nFC3\nFC4\nD7B\n663\nFC4\nD7B\n6D5\nFC6\nD80\n6E6\nD80\n904\nD0A\n903\nD0A\n952\nD0A\n906\nD0A\n955\nD0A\n1E0\n1E1\n1E2\n1E3\n1E4\n1E5\n1F6\nCA5\nF60\nFF0\nC00\n6DF\n6F2\nFC3\nFC4\nD7B\n652\nFC3\nFC4\nD7B\n663\nFC4\nD7B\n4F5\nFB6\nC45\n1E0\n1A1\n1E2\n1A3\nC99\n1FE\nFEF\n71E\nD73\nC70\nF40\nFEF\n10D\nFED\n71E\nD58\nF02\nC73\n1A0\n1A1\n1A2\n1A3\nC90\n1F0\n1A1\n1F2\n1A3\nC9F\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n000\n11D\n51E\nFBD\nE73\nFEE\n0EF\nF8F\nFEF\nC91\n11D\n71E\nFBD\nE73\nFEE\nC9A\n11D\n51E\nFBD\nE73\nFEE\nCA0\n10D\n14E\nFEE\n1AE\nFEE\n54D\nFBC\nDAE\nCA6\n10E\nFEE\nC57\n"
+},
+{
 "name": "KNIFFEL",
 "title": "Kniffel (Yahtzee)",
 "group": "Games by Björn Rathje",

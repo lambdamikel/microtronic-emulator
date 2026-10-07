@@ -29,6 +29,10 @@ The emulation is at pin level; nothing in the firmware is patched or intercepted
 At the original clock (500 kHz, 83,333 instruction cycles/s) the interpreter
 executes roughly 58 Microtronic instructions per second.
 
+- **Tone circuit of manual Part 2** (p. 52-53): the astable multivibrator wired to outputs 1-4 through
+  22k / 10k / 4.7k / 2.2k resistors, so the output value sets the pitch. The pitch curve is fitted to the
+  manual's own melodies (4 = c, 6 = d, 8 = e, A = f, C = g); values 1-3 give no tone, as the manual says.
+  With it come the manual's mini organ, composing computer, music box and the Moon Landing with sound effects.
 - **PicoRAM 2090 sound**: the extended op-code `50D` (play note), with arguments
   given as `0xx` literals or `3Fx` register reads, detected on instruction fetch
   as the PicoRAM does. Register arguments are read directly instead of through

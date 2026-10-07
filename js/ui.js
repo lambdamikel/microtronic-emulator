@@ -48,7 +48,7 @@
     }
     // DOT outputs sit behind inverting drivers: LED on while R7..R10 is low.  Flag LEDs are driven directly.
     const vals = [1 - led[0], 1 - led[1], 1 - led[2], 1 - led[3], led[4], led[5], (Math.floor(m.cycles * 2 / m.cps) & 1)];
-    if (typeof sound !== "undefined") sound.piezo(piezoOut >= 0 ? vals[piezoOut] : 0);
+    if (typeof sound !== "undefined") { sound.piezo(piezoOut >= 0 ? vals[piezoOut] : 0); sound.vib(m.outputPins); }
     const els = [...dotLeds, ...flagLeds, clkLed];
     for (let i = 0; i < 7; i++) {
       const lv = ledLevel[i] = ledLevel[i] + (vals[i] - ledLevel[i]) * 0.6;
@@ -211,6 +211,7 @@
     let msg = `${name}: ${words.length} instructions loaded${run ? ", running from 00" : ""}.`;
     if (entry && entry.setup) {                      // wire up what this program needs
       const w = [], su = entry.setup;
+      if (su.vib) { setVib(true); w.push("tone circuit on outputs 1-4"); }
       if (su.piezo !== undefined) { setPiezo(String(su.piezo)); w.push(`piezo buzzer on output ${su.piezo + 1}`); }
       for (const b of ["G", "H"]) if (su[b] !== undefined) { wire[b].value = String(su[b]); wire[b].dispatchEvent(new Event("change")); w.push(`key ${b} on input ${su[b] + 1}`); }
       if (su.patch) { setPatch(String(su.patch[0]), String(su.patch[1])); w.push(`cable from output ${su.patch[0] + 1} to input ${su.patch[1] + 1}`); }
@@ -248,12 +249,17 @@
   // It can only see instructions as they are fetched, so (as on the real thing) nothing at address 00 is noticed on RUN.
   const sound = (() => {
     let ctx = null, osc = null, gain = null, mode = null, octave = null, freq = 0;
+    // everything goes through one master gain, so the Sound off button can silence it all at once;
+    // the next new tone from any source brings the sound back
+    let master = null, hushed = false, lastPiezo = 0;
+    const out = () => { if (!master) { master = ctx.createGain(); master.connect(ctx.destination); } return master; };
+    function hush(on) { hushed = on; if (ctx) out().gain.setTargetAtTime(on ? 0 : 1, ctx.currentTime, 0.003); }
     const noteHz = (o, n) => {
       if (n < 1 || n > 13) return 0;                                   // rest
       if (o === 7 && n > 4) o = 0;                                     // quirk of the PicoRAM note table
       return 32.7032 * Math.pow(2, o + (n - 1) / 12);
     };
-    function wake() { if (!ctx) { const C = window.AudioContext || window.webkitAudioContext; if (!C) return; ctx = new C(); gain = ctx.createGain(); gain.gain.value = 0; gain.connect(ctx.destination);
+    function wake() { if (!ctx) { const C = window.AudioContext || window.webkitAudioContext; if (!C) return; ctx = new C(); gain = ctx.createGain(); gain.gain.value = 0; gain.connect(out());
         osc = ctx.createOscillator(); osc.type = "square"; osc.connect(gain); osc.start(); } if (ctx.state === "suspended") ctx.resume(); apply(); }
     function apply() {
       if (!ctx) return;
@@ -261,7 +267,7 @@
       if (on) osc.frequency.setValueAtTime(freq, ctx.currentTime);
       gain.gain.setTargetAtTime(on ? 0.06 : 0, ctx.currentTime, 0.004);
     }
-    function tone(f) { freq = f; $("tone").textContent = f > 0 ? `Playing ${f.toFixed(1)} Hz.` : "Silent."; apply(); }
+    function tone(f) { if (f > 0 && hushed) hush(false); freq = f; $("tone").textContent = f > 0 ? `Playing ${f.toFixed(1)} Hz.` : "Silent."; apply(); }
     function arg(v) {
       if (mode !== "note") return;
       if (octave === null) octave = v % 8; else { tone(noteHz(octave, v)); octave = null; }
@@ -276,14 +282,45 @@
     let pOsc = null, pGain = null;
     function piezo(level) {
       if (!ctx) return;
-      if (!pOsc) { pGain = ctx.createGain(); pGain.gain.value = 0; pGain.connect(ctx.destination); pOsc = ctx.createOscillator(); pOsc.type = "square"; pOsc.frequency.value = 2400; pOsc.connect(pGain); pOsc.start(); }
+      if (hushed && level > 0.5 && lastPiezo <= 0.5) hush(false);
+      lastPiezo = level;
+      if (!pOsc) { pGain = ctx.createGain(); pGain.gain.value = 0; pGain.connect(out()); pOsc = ctx.createOscillator(); pOsc.type = "square"; pOsc.frequency.value = 2400; pOsc.connect(pGain); pOsc.start(); }
       pGain.gain.setTargetAtTime($("sound").checked ? 0.035 * level : 0, ctx.currentTime, 0.006);
     }
-    return { wake, fetched, apply, piezo, off() { mode = null; octave = null; tone(0); } };
+    // Tone circuit of manual Part 2 (p. 52-53): an astable multivibrator whose pitch is set by outputs 1-4 through
+    // 22k / 10k / 4.7k / 2.2k resistors.  Outputs all low, or only the weakest ones high (values 1-3): no oscillation.
+    // The pitch curve is fitted to the manual's own melodies (value 4 = c, 6 = d, 8 = e, A = f, C = g).
+    const VG = v => (v & 1) / 22 + ((v >> 1) & 1) / 10 + ((v >> 2) & 1) / 4.7 + ((v >> 3) & 1) / 2.2;      // conductance, mS
+    const ANCH = [[VG(4), 0], [VG(6), 2], [VG(8), 4], [VG(10), 5], [VG(12), 7]];                           // semitones above c
+    function vibHz(v) {
+      if (v < 4) return 0;
+      const g = Math.log(VG(v)); let i = 0;
+      while (i < ANCH.length - 2 && g > Math.log(ANCH[i + 1][0])) i++;
+      const [g0, s0] = ANCH[i], [g1, s1] = ANCH[i + 1];
+      const semis = s0 + (s1 - s0) * (g - Math.log(g0)) / (Math.log(g1) - Math.log(g0));
+      return 261.63 * Math.pow(2, (semis + (+$("vibpitch").value)) / 12);
+    }
+    let vOsc = null, vGain = null, vVal = -1;
+    function vib(v) {
+      if (v === vVal && v !== -2) return; if (hushed && v >= 0 && v !== vVal && $("vibon").checked && vibHz(v)) hush(false); vVal = v;
+      const f = $("vibon").checked ? vibHz(v) : 0;
+      $("vibtone").textContent = !$("vibon").checked ? "" : f ? `Outputs = ${v.toString(16).toUpperCase()}: ${f.toFixed(0)} Hz` : `Outputs = ${v.toString(16).toUpperCase()}: no tone`;
+      if (!ctx) return;
+      if (!vOsc) { vGain = ctx.createGain(); vGain.gain.value = 0; vGain.connect(out()); vOsc = ctx.createOscillator(); vOsc.type = "square"; vOsc.connect(vGain); vOsc.start(); }
+      const on = f > 0 && $("sound").checked;
+      if (on) vOsc.frequency.setValueAtTime(f, ctx.currentTime);
+      vGain.gain.setTargetAtTime(on ? 0.05 : 0, ctx.currentTime, 0.003);
+    }
+    return { wake, fetched, apply, piezo, vib, revib() { const v = vVal; vVal = -2; vib(v); }, hush, off() { mode = null; octave = null; tone(0); } };
   })();
   m.onFetch = sound.fetched;
   ["pointerdown", "keydown"].forEach(t => addEventListener(t, sound.wake, { capture: true }));
-  $("sound").addEventListener("change", sound.apply);
+  $("sound").addEventListener("change", () => { sound.apply(); sound.revib(); });
+  $("soundoff").addEventListener("click", () => sound.hush(true));
+  function setVib(on) { $("vibon").checked = on; $("vibwires").style.display = on ? "" : "none"; $("vibblock").classList.toggle("off", !on); sound.revib(); try { localStorage.setItem("microtronic2090.vib", on ? "1" : "0"); } catch (_) {} }
+  $("vibon").addEventListener("change", () => setVib($("vibon").checked));
+  $("vibpitch").addEventListener("input", sound.revib);
+  { let on = false; try { on = localStorage.getItem("microtronic2090.vib") === "1"; } catch (_) {} setVib(on); }
 
   // ------------------------------------------------------------------ speed
   let speed = 1;
@@ -335,10 +372,12 @@
     const pc = m.vmPC, fl = m.ram[77];
     let r = "", x = "";
     for (let i = 0; i < 16; i++) { r += hex(m.vmReg(i), 1) + " "; x += hex(m.vmMem(i), 1) + " "; }
+    const bits4 = v => [0, 1, 2, 3].map(b => (v >> b) & 1).join(" ") + "  = " + v.toString(16).toUpperCase();
     $("state").textContent =
       `PC ${hex(pc, 2)}   ${m.vmRunning ? "RUN " : "HALT"}   carry ${fl & 1}  zero ${(fl >> 1) & 1}\n` +
       `      0 1 2 3 4 5 6 7 8 9 A B C D E F\n` +
-      `work  ${r}\nmem   ${x}`;
+      `work  ${r}\nmem   ${x}\n` +
+      `in  1-4  ${bits4(m.inputPins)}\nout 1-4  ${bits4(m.outputPins)}`;
     if (!editing) for (let a = 0; a < 256; a++) if (shown[a] !== m.readWord(a)) renderRow(a);
     if (pc !== pcRow) {
       if (pcRow >= 0) rows[pcRow].classList.remove("pc");

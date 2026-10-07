@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Busch Microtronic 2090 Emulator</title>
-<link rel="stylesheet" href="css/microtronic.css?v=202610061909">
+<link rel="stylesheet" href="css/microtronic.css?v=202610070722">
 </head>
 <body>
 <header>
@@ -24,6 +24,7 @@
     <div class="taster" style="left:80cqw;width:7.7cqw" aria-hidden="true"><i></i><span>Widerstand</span><span>4,7 kΩ</span></div>
     <div class="taster piezo" style="left:49.2cqw;width:8cqw"><i></i><b></b><span>Piezosummer</span>
       <select id="piezowire" aria-label="Piezo buzzer is wired to" title="Which output the piezo buzzer is wired to"><option value="">not wired</option><option value="0">← Out 1</option><option value="1">← Out 2</option><option value="2">← Out 3</option><option value="3" selected>← Out 4</option></select></div>
+    <div class="taster vibblock" id="vibblock" style="left:69.3cqw;width:9.6cqw" title="Tone circuit (astable multivibrator) from manual Part 2, wired to outputs 1-4"><b></b><span>Tongenerator</span><span>Multivibrator</span></div>
     <svg id="wires" viewBox="0 0 92.2 35.6" preserveAspectRatio="none" aria-hidden="true">
       <path class="thick" stroke="#151515" d="M9.9 7.4 C 12 12, 18 22, 21.2 35.6"/><path class="thick" stroke="#151515" d="M19.9 7 C 21 13, 25 24, 27.3 35.6"/>
       <path stroke="#c9a227" d="M27 7.2 C 27.5 14, 33 25, 35.5 35.6"/><path stroke="#c9a227" d="M37.3 7.2 C 37.2 15, 40 26, 41.4 35.6"/>
@@ -31,7 +32,7 @@
       <path stroke="#c8281e" d="M80.37 4.65 C 70 -1, 48 -1, 37.12 4.65"/>
       <path stroke="#c8281e" d="M37.12 4.65 C 34 1.4, 30 1.4, 26.86 4.65"/>
       <path id="wireN" stroke="#1d1d1f"/><path id="wireP" stroke="#2f6fd0"/><path id="wireO" stroke="#8e5bd0"/><circle id="plugN" r="0"/><circle id="plugP" r="0"/><circle id="plugO1" r="0"/><circle id="plugO2" r="0"/><path id="wireC" stroke="#3aa655"/><circle id="plugC" r="0"/><path id="wireG" stroke="#e2b714"/><path id="wireH" stroke="#e08a1e"/>
-      <circle cx="85.01" cy="12.48" r=".75"/><circle cx="80.37" cy="4.65" r=".75"/><circle cx="87.33" cy="4.65" r=".75"/><circle cx="26.86" cy="4.65" r=".75"/><circle cx="37.12" cy="4.65" r=".75"/><circle id="pegG" cx="34.99" cy="4.65" r="0"/><circle id="pegH" cx="45.25" cy="4.65" r="0"/><circle id="pegP1" cx="49.61" cy="4.65" r="0"/><circle id="pegP2" cx="56.79" cy="4.65" r="0"/><circle id="plugG" r=".75"/><circle id="plugH" r=".75"/>
+      <g id="vibwires"><path stroke="#7a4a2a" d="M70.6 8.1 C 66 9.6, 55.5 9, 53.8 12.48"/><path stroke="#b5651d" d="M72.6 8.1 C 68 10.4, 58 9.6, 56.48 12.48"/><path stroke="#d08a3a" d="M74.6 8.1 C 70 11.2, 60.5 10.2, 59.12 12.48"/><path stroke="#e8b45a" d="M76.6 8.1 C 72 12, 63 10.8, 61.78 12.48"/><circle cx="53.8" cy="12.48" r=".6"/><circle cx="56.48" cy="12.48" r=".6"/><circle cx="59.12" cy="12.48" r=".6"/><circle cx="61.78" cy="12.48" r=".6"/></g><circle cx="85.01" cy="12.48" r=".75"/><circle cx="80.37" cy="4.65" r=".75"/><circle cx="87.33" cy="4.65" r=".75"/><circle cx="26.86" cy="4.65" r=".75"/><circle cx="37.12" cy="4.65" r=".75"/><circle id="pegG" cx="34.99" cy="4.65" r="0"/><circle id="pegH" cx="45.25" cy="4.65" r="0"/><circle id="pegP1" cx="49.61" cy="4.65" r="0"/><circle id="pegP2" cx="56.79" cy="4.65" r="0"/><circle id="plugG" r=".75"/><circle id="plugH" r=".75"/>
     </svg>
     <div id="bayL" aria-hidden="true"></div>
     <div class="strip left" aria-hidden="true">
@@ -122,9 +123,13 @@
       <select id="patchin"><option value="0">1</option><option value="1">2</option><option value="2">3</option><option value="3" selected>4</option></select></label>
     <p class="note">A cable from an output to an input, so a program can read back what it wrote.</p>
     <h2 style="margin-top:12px">Sound</h2>
+    <div class="row"><button id="soundoff" title="Silence whatever is sounding now; the next new tone is heard again">Sound off</button></div>
     <label class="check"><input type="checkbox" id="sound" checked> Sound on</label>
+    <label class="check"><input type="checkbox" id="vibon"> Tone circuit (multivibrator) on outputs 1–4</label>
+    <label class="check">Pitch knob <input type="range" id="vibpitch" min="-12" max="12" step="1" value="0"></label>
+    <p class="note" id="vibtone"></p>
     <p class="note" id="tone">Silent.</p>
-    <p class="note">The piezo buzzer sounds while its output is on. PicoRAM 2090 notes: op-code <code>50D</code>, then octave and note, each given as <code>0xx</code> (literal) or <code>3Fx</code> (from register x).</p>
+    <p class="note">Three sound sources: the manual's tone circuit (Part 2, p. 52: the output value sets the pitch; 4–F give twelve tones, 0–3 none), the piezo buzzer (sounds while its output is on), and PicoRAM 2090 notes (op-code <code>50D</code>, then octave and note as <code>0xx</code> or <code>3Fx</code>).</p>
   </div>
 
   <div class="panel">
@@ -172,9 +177,9 @@
   Source: <a href="https://github.com/lambdamikel/microtronic-emulator">github.com/lambdamikel/microtronic-emulator</a> (GPL-3; the firmware ROM remains © Busch).</p>
 </footer>
 
-<script src="js/rom.js?v=202610061909"></script>
-<script src="js/programs.js?v=202610061909"></script>
-<script src="js/tms1600.js?v=202610061909"></script>
-<script src="js/ui.js?v=202610061909"></script>
+<script src="js/rom.js?v=202610070722"></script>
+<script src="js/programs.js?v=202610070722"></script>
+<script src="js/tms1600.js?v=202610070722"></script>
+<script src="js/ui.js?v=202610070722"></script>
 </body>
 </html>

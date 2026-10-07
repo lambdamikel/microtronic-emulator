@@ -1,0 +1,10 @@
+# Mini-Orgel, Lang-Ton-Version (mini organ, long tones)
+# Busch Microtronic manual Part 2, p. 52. Needs the tone circuit (multivibrator) on outputs 1-4.
+# Keys 4-F play twelve tones, key 0 is silence; keys 1-3 give no usable tone.
+
+@ 00
+
+F10
+FF0
+FE0
+C00

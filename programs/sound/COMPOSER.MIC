@@ -1,0 +1,24 @@
+# Der komponierende Computer (the composing computer / melody generator)
+# Busch Microtronic manual Part 2, p. 54. Needs the tone circuit (multivibrator) on outputs 1-4.
+# Start it, then press any digit or letter key: the computer composes random melodies.
+# Address 0D: the manual prints the mnemonic DOT 0 next to the code FED (DOT D); the code is what the text describes.
+
+@ 00
+
+F08
+FE0
+F60
+FF0
+F05
+531
+40D
+E0D
+41D
+E04
+93D
+D0D
+57D
+FED
+71E
+E04
+C0E

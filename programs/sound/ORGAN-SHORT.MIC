@@ -1,0 +1,14 @@
+# Mini-Orgel, Kurz-Ton-Version (mini organ, short tones)
+# Busch Microtronic manual Part 2, p. 52. Needs the tone circuit (multivibrator) on outputs 1-4.
+# Each key gives one short tone. Change address 03 from 511 to 521, 541 or 581 for shorter tones.
+
+@ 00
+
+F10
+FF0
+FE0
+511
+E06
+C03
+FE1
+C00

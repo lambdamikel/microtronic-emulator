@@ -178,3 +178,8 @@ button.jack:hover { box-shadow: 0 0 0 .16cqw #f2c81e; }
 #tools button:hover, #tools select:hover { border-color: var(--accent); }
 #listing div:hover { outline: 1px solid var(--accent); outline-offset: -1px; }
 .led { filter: brightness(calc(1 + .2 * var(--on))); }
+.taster.vibblock { background: linear-gradient(180deg, #e9e3d2, #cfc7b0); }
+.taster.vibblock b { position: absolute; left: 1cqw; top: .6cqw; width: 2cqw; height: 2cqw; border-radius: 50%; background: radial-gradient(circle, #222 0 25%, #777 30% 55%, #333 60%); }
+.taster.vibblock span { font-size: .82cqw; color: #555; line-height: 1.05; }
+.taster.vibblock.off { opacity: .45; }
+#tools input[type=range] { flex: 1 1 80px; }

@@ -32,6 +32,10 @@ for d in sys.argv[1:]:
             text = open(os.path.join(os.path.dirname(f), 'DAYS.MIC')).read() + '\n# ---- addition, from address 51 ----\n' + text
         if name in TITLES: out.append({'name': name, 'title': TITLES[name], 'group': 'From the Busch manuals', 'text': text})
         elif name in SOUND: out.append({'name': name, 'title': SOUND[name], 'group': 'PicoRAM 2090 sound demos', 'text': text})
+VIB = [('ORGAN-LONG', 'Mini organ, long tones'), ('ORGAN-SHORT', 'Mini organ, short tones'), ('COMPOSER', 'The composing computer'),
+       ('MUSICBOX', 'Music box: three melodies'), ('LUNAR-SOUND', 'Moon Landing with sound effects')]
+for name, title in VIB:
+    out.append({'name': name, 'title': title, 'group': 'With the tone circuit (manual Part 2)', 'setup': {'vib': True}, 'text': open(f'programs/sound/{name}.MIC').read()})
 for f in sorted(glob.glob('programs/rathje/*.MIC')):
     name = os.path.splitext(os.path.basename(f))[0]
     title, repo, setup = RATHJE[name]

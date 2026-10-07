@@ -60,6 +60,13 @@ class Microtronic {
   // ---- convenience access to the Microtronic VM state (not used by the emulation itself) ----
   readWord(a) { const s = this.sram; return ((~s[a] & 15) << 8) | ((~s[0x200 + a] & 15) << 4) | (~s[0x100 + a] & 15); }
   writeWord(a, v) { const s = this.sram; s[a] = ~(v >> 8) & 15; s[0x200 + a] = ~(v >> 4) & 15; s[0x100 + a] = ~v & 15; }
+  get inputPins() {                        // levels on inputs 1-4: switches/keys, clock cable, output-to-input cables
+    let d = this.din;
+    for (const [o, i] of this.patches) if (!this.R[7 + o]) d |= 1 << i;
+    if (this.clockInput >= 0 && (Math.floor(this.cycles * 2 / this.cps) & 1)) d |= 1 << this.clockInput;
+    return d & 15;
+  }
+  get outputPins() { const R = this.R; return (R[7] ? 0 : 1) | (R[8] ? 0 : 2) | (R[9] ? 0 : 4) | (R[10] ? 0 : 8); }
   get vmPC() { return (this.ram[37] << 4) | this.ram[36]; }
   get vmRunning() { return this.ram[8] === 1; }
   vmReg(i) { return this.ram[112 + i]; }       // working registers  (file 7)
