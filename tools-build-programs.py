@@ -10,7 +10,7 @@ TITLES = {
  '17+4':'17 + 4 (Blackjack)','BATTLE':'Battle','BIORYTHM':'Biorhythm (with Days)','BLOCKADE':'Blockade','CALC':'Calculator',
  'CODE':'Code breaker','DAYS':'Days between dates','DIAGONALS':'Diagonals','HAL9000':'HAL 9000','HANOI':'Towers of Hanoi',
  'HELLO':'Hello','HUNDRED':'Hundred','LAWINE':'Lawine (Avalanche)','LUNAR':'Lunar Lander','MORSE':'Morse encoder',
- 'NIMTWO':'Nim 2','NUMGUESS':'Number guessing','POWERS':'Powers','PRIMES-ENUM':'Prime enumerator','PRIMES':'Prime tester',
+ 'NIMTWO':'Nim 2','NUMGUESS':'Number guessing','POWERS':'Powers','PRIMES-ENUM':'Prime enumerator (to 997, then halts)','PRIMES-LOOP':'Prime enumerator, endless (press a key 0-F for the pause)','PRIMES':'Prime tester',
  'RACING':'Racing','RESISTOR':'Resistor decoder','SINUS':'Sine','SUPERDIV':'Super division','TITATO':'Tic-Tac-Toe','WEEKDAY':'Weekday (with Days)',
 }
 SKIP = {'HAL9000', 'HELLO'}          # need the speech synthesizer

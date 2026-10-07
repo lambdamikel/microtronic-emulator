@@ -100,9 +100,15 @@ const MICROTRONIC_PROGRAMS = [
 },
 {
 "name": "PRIMES-ENUM",
-"title": "Prime enumerator",
+"title": "Prime enumerator (to 997, then halts)",
 "group": "From the Busch manuals",
 "text": "# PRIMES-ENUM  -  prime-number enumerator for the Busch Microtronic 2090\n#\n# Displays the primes 2, 3, 5, 7, 11, ... in decimal, one after another,\n# pausing after each, then HALTs after the last prime below 1000 (997).\n#\n# Just LOAD and RUN (no input needed) -- unlike the interactive PRIMES.MIC,\n# this one simply counts up and shows every prime it finds.\n#\n# Method: trial division by the built-in DIV, using DIV's remainder flag\n# and its quotient (for a sqrt(n) early-out).  See PRIMES-ENUM.asm for the\n# fully commented source.\n#\n# Delay length is tunable: the word at address 39 is  '3'  (the high nibble\n# 3 of instruction 13C = 'MOVI 3,C').  Raise it (up to F) for a longer pause\n# between numbers, lower it for a shorter one.\n# Each unit is about one second on the real machine (the pause is roughly 3 s as shipped).\n#\n# Registers: R8/R9/RA = n (units/tens/hundreds), R6/R7 = trial divisor,\n#            RC/RD/RE = delay counters.  (c) source: CC BY 4.0.\n\n@ 00\n\nF08\nF74\nF75\n128\nB38\n138\n126\n107\n080\n091\n0A2\n103\nF70\nF71\nF72\nF73\n060\n071\n102\n103\nF0C\nE17\nC29\n902\nE1A\nC21\n817\nD28\nE1E\nC21\n860\nD21\nC28\n516\n9A6\nE25\nC08\n106\n517\nC08\nB38\n518\n9A8\nE2D\nC06\n108\n519\n9A9\nE32\nC06\n109\n51A\n9AA\nE37\nC06\nF00\nF38\n13C\n1FD\n10E\n51E\nD3F\nC3C\n51D\nD42\nC3B\n71C\nD45\nC3A\nF07\n"
+},
+{
+"name": "PRIMES-LOOP",
+"title": "Prime enumerator, endless (press a key 0-F for the pause)",
+"group": "From the Busch manuals",
+"text": "# PRIMES-LOOP  -  endless prime-number enumerator for the Busch Microtronic 2090\n#\n# Shows the primes 2, 3, 5, 7, ... 997 and then starts again at 2.\n#\n# After RUN it waits for ONE key: the pause after each prime, 0 to F\n# (about one second per unit; 0 = no pause).\n#\n# The display stays on the last prime found while the next one is searched,\n# and the output LEDs flicker with the trial divisor.\n#\n# Fully commented source: PRIMES-LOOP.asm.  Written by Claude Code (Opus 5.5), October 2026.\n\n@ 00\n\nF08\nF74\nF75\nFFB\nF02\n12C\n10D\n10E\nF3C\nB44\n138\n109\n10A\n126\n107\nFE6\n080\n091\n0A2\n103\nF70\nF71\nF72\nF73\n060\n071\n102\n103\nF0C\nE1F\nC36\n902\nE22\nC29\n817\nD30\nE26\nC29\n860\nD29\nC30\n516\n9A6\nE2D\nC0F\n106\n517\nC0F\nF02\n08C\n09D\n0AE\nF3C\nB44\n518\n9A8\nE3A\nC0D\n108\n519\n9A9\nE3F\nC0D\n109\n51A\n9AA\nE04\nC0D\n0BF\n90F\nE4C\n514\nD4A\nC47\n71F\nC45\nF07\n"
 },
 {
 "name": "PRIMES",
