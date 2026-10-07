@@ -15,7 +15,7 @@ p = p.resize((p.width * S, p.height * S), Image.LANCZOS).filter(ImageFilter.Gaus
 b = np.asarray(p) >= 95                      # potracer traces the False (dark) areas here
 hh, ww = b.shape
 ink = ~b
-RULES = (179, 201, 1184, 1206, 110, 2490)     # measured off the first trace: y-range of each rule, x-range
+RULES = (168, 213, 1173, 1218, 110, 2490)     # measured off the first trace: y-range of each rule, x-range
 b[:int(hh*0.155)] = True; b[int(hh*0.78):] = True; b[:, :int(ww*0.03)] = True; b[:, int(ww*0.97):] = True
 bm = potrace.Bitmap(b); pl = bm.trace(turdsize=120, alphamax=1.1, opttolerance=0.4)
 d = []
