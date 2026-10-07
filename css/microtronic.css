@@ -93,11 +93,8 @@ button.jack.on { width: 1.6cqw; height: 1.6cqw; background: radial-gradient(circ
 #front { position: relative; height: 16.5cqw; background: linear-gradient(180deg, #333437 0, #222325 8%, #1b1c1e 100%); border-top: .35cqw solid #060607; }
 #front > * { position: absolute; }
 .screw { width: 1cqw; height: 1cqw; top: 8.7cqw; border-radius: 50%; transform: translate(-50%, -50%); background: radial-gradient(circle at 40% 35%, #555, #101011 70%); }
-#badge { left: 5.5cqw; top: 3cqw; width: 10.7cqw; height: 5.5cqw; background: linear-gradient(180deg, #c9c9c7, #a9aaab); color: #101113; border-radius: .15cqw;
-  display: flex; flex-direction: column; justify-content: center; align-items: center; line-height: 1; }
-#badge::before { content: ""; position: absolute; left: .45cqw; right: .45cqw; top: .62cqw; bottom: .62cqw; border: solid #17181a; border-width: .13cqw 0; }
-#badge b { font: italic 900 1.7cqw/1 "Arial Black", "Helvetica Neue", Arial, sans-serif; letter-spacing: -.05em; color: #111; }
-#badge span { margin-top: .5cqw; font: 700 1.12cqw/1 "Trebuchet MS", Verdana, Arial, sans-serif; letter-spacing: .03em; color: #151617; }
+#badge { left: 5.5cqw; top: 2.9cqw; width: 10.7cqw; height: 5.74cqw; background: linear-gradient(180deg, #cfcfcd, #b1b2b3); border-radius: .12cqw; }
+#badgeart { position: absolute; inset: 0; width: 100%; height: 100%; fill: #0d0d0e; }
 .din { top: 5.65cqw; width: 4.1cqw; height: 4.1cqw; border-radius: 50%; transform: translate(-50%, -50%);
   background:
     radial-gradient(circle at 50% 21%, #060606 0 5%, transparent 6%),
