@@ -114,7 +114,8 @@ button.jack.on { width: 1.6cqw; height: 1.6cqw; background: radial-gradient(circ
 #window .filter { position: absolute; left: .25cqw; right: .25cqw; top: .25cqw; height: 3cqw; background: linear-gradient(180deg, #3a0809, #2a0506); display: flex; align-items: center; justify-content: center;
   box-shadow: 0 .1cqw .5cqw rgba(255,255,255,.06) inset; }
 #display { display: block; width: 9.4cqw; height: auto; }
-#display .seg { fill: #ff2a1a; opacity: .045; }
+#display .seg { fill: #ff3a26; opacity: .045; }
+#display { filter: brightness(1.2) drop-shadow(0 0 .22cqw rgba(255, 60, 40, .55)); }
 #keypad { left: 71.4cqw; top: .26cqw; width: 23.75cqw; height: 15.9cqw; display: grid; grid-template-columns: repeat(6, 1fr); grid-template-rows: repeat(4, 1fr);
   padding: 1.5cqw .5cqw .7cqw .4cqw; background: linear-gradient(180deg, #c3c4c6, #b1b2b5); box-shadow: 0 1px 0 rgba(255,255,255,.6) inset, 0 .25cqw .7cqw rgba(0,0,0,.6); }
 #keypad::after { content: ""; position: absolute; left: 65.3%; top: 0; bottom: 0; width: .22cqw; background: linear-gradient(90deg, #7d7f83, #dcdddf); }
@@ -176,3 +177,4 @@ button.jack:hover { box-shadow: 0 0 0 .16cqw #f2c81e; }
 .taster select:hover { border-color: #c8281e; }
 #tools button:hover, #tools select:hover { border-color: var(--accent); }
 #listing div:hover { outline: 1px solid var(--accent); outline-offset: -1px; }
+.led { filter: brightness(calc(1 + .2 * var(--on))); }
