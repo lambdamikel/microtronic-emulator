@@ -57,6 +57,7 @@
   }
 
   // ------------------------------------------------------------------ keypad
+  const HINT = { HALT: "H", NEXT: "N, Enter or Space", RUN: "R", STEP: "S or T", BKP: "K", REG: "G", PGM: "P", CCE: "X, Backspace or Delete" };
   const LAYOUT = [["C","D","E","F","NEXT","REG"], ["8","9","A","B","BKP","STEP"],
                   ["4","5","6","7","RUN","HALT"], ["0","1","2","3","CCE","PGM"]];
   const keyEls = {}, downAt = {};
@@ -79,7 +80,6 @@
     keyEls[k] = el; $("keypad").appendChild(el);
   }));
   const KB = { h: "HALT", n: "NEXT", enter: "NEXT", " ": "NEXT", r: "RUN", s: "STEP", t: "STEP", k: "BKP", g: "REG", p: "PGM", backspace: "CCE", delete: "CCE", x: "CCE" };
-  const HINT = { HALT: "H", NEXT: "N, Enter or Space", RUN: "R", STEP: "S or T", BKP: "K", REG: "G", PGM: "P", CCE: "X, Backspace or Delete" };
   const kbKey = e => { const k = e.key.toLowerCase(); return /^[0-9a-f]$/.test(k) ? k.toUpperCase() : KB[k]; };
   const typing = e => /^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName);
   addEventListener("keydown", e => {
