@@ -114,7 +114,7 @@
       const v = wire[b].value, path = $("wire" + b), plug = $("plug" + b);
       $("peg" + b).setAttribute("r", v === "" ? 0 : 0.75);          // yellow peg on the block's terminal
       if (v === "") { path.setAttribute("d", ""); plug.setAttribute("r", 0); continue; }
-      const x = JACKX[+v] + (b === "H" ? 0.25 : -0.25), x0 = TERM[b];
+      const x = JACKX[+v], x0 = TERM[b];       // every cable ends on the centre of its jack, so shared jacks show one peg
       path.setAttribute("d", `M${x0} ${TERMY} C ${x0 + 4} ${b === "G" ? 1.2 : 2}, ${x - 1} ${b === "G" ? 2 : 3}, ${x} ${JACKY}`);
       plug.setAttribute("cx", x); plug.setAttribute("cy", JACKY); plug.setAttribute("r", 0.75);
     }
@@ -167,7 +167,7 @@
     m.patches = o === "" ? [] : [[+o, +i]];
     if (o === "") { $("wireO").setAttribute("d", ""); setPlug("plugO1", null); setPlug("plugO2", null); }
     else {
-      const x1 = OUTX[+o] + 0.3, x2 = JACKX[+i] + 0.3;
+      const x1 = OUTX[+o], x2 = JACKX[+i];
       $("wireO").setAttribute("d", `M${x1} ${JACKY} C ${x1 + 1} 16.5, ${x2 - 1} 16.5, ${x2} ${JACKY}`);
       setPlug("plugO1", x1); setPlug("plugO2", x2);
     }
