@@ -46,8 +46,8 @@ Not emulated: the 2095 cassette interface (its board is drawn, but does nothing)
   and another an output to an input. Programs that need particular wiring (Monarch:
   buzzer on output 1, keys G/H on inputs 1/2; Mensch: output 4 to input 4) are wired
   automatically when loaded from the library.
-- Click the keys, or type: `0`–`9` `A`–`F`, `H` HALT, `N`/`Enter` NEXT, `R` RUN,
-  `S` STEP, `K` BKP, `G` REG, `P` PGM, `Backspace` C/CE, `Esc` Reset.
+- Click the keys, or drive everything from the PC keyboard: `0`–`9` `A`–`F`, `H` HALT, `N`/`Enter`/`Space` NEXT, `R` RUN,
+  `S`/`T` STEP, `K` BKP, `G` REG, `P` PGM, `X`/`Backspace` C/CE, `Esc` Reset, `,` key G, `.` key H.
 - Pick a program from the library and press **Load & run**, or open your own
   `.MIC` file. Loading writes program memory directly and then types
   `HALT NEXT 0 0 RUN` on the keypad.

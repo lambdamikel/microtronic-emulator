@@ -73,12 +73,13 @@
   LAYOUT.forEach(row => row.forEach(k => {
     const el = document.createElement("div");
     el.className = "key"; el.innerHTML = `<span>${k === "CCE" ? "C/CE" : k}</span><b></b>`;
-    el.setAttribute("role", "button"); el.setAttribute("aria-label", k);
+    el.setAttribute("role", "button"); el.setAttribute("aria-label", k); el.title = `${k === "CCE" ? "C/CE" : k} (keyboard: ${HINT[k] || k})`;
     el.addEventListener("pointerdown", e => { e.preventDefault(); try { el.setPointerCapture(e.pointerId); } catch (_) {} press(k); });
     ["pointerup", "pointercancel", "lostpointercapture"].forEach(t => el.addEventListener(t, () => release(k)));
     keyEls[k] = el; $("keypad").appendChild(el);
   }));
-  const KB = { h: "HALT", n: "NEXT", enter: "NEXT", r: "RUN", s: "STEP", k: "BKP", g: "REG", p: "PGM", backspace: "CCE", delete: "CCE" };
+  const KB = { h: "HALT", n: "NEXT", enter: "NEXT", " ": "NEXT", r: "RUN", s: "STEP", t: "STEP", k: "BKP", g: "REG", p: "PGM", backspace: "CCE", delete: "CCE", x: "CCE" };
+  const HINT = { HALT: "H", NEXT: "N, Enter or Space", RUN: "R", STEP: "S or T", BKP: "K", REG: "G", PGM: "P", CCE: "X, Backspace or Delete" };
   const kbKey = e => { const k = e.key.toLowerCase(); return /^[0-9a-f]$/.test(k) ? k.toUpperCase() : KB[k]; };
   const typing = e => /^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName);
   addEventListener("keydown", e => {
