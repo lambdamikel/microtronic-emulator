@@ -210,9 +210,11 @@
     for (const [a, w] of words) m.writeWord(a, w);
     typeKeys(run ? ["HALT", "NEXT", "0", "0", "RUN"] : ["HALT", "NEXT", "0", "0"], BOOT);
     let msg = `${name}: ${words.length} instructions loaded${run ? ", running from 00" : ""}.`;
-    if (entry && entry.setup) {                      // wire up what this program needs
-      const w = [], su = entry.setup;
-      if (su.vib) { setVib(true); w.push("tone circuit on outputs 1-4"); }
+    if (entry) {                                     // a library program: wire up what it needs, and take off what it does not
+      const w = [], su = entry.setup || {};
+      setVib(!!su.vib); if (!su.patch) setPatch("", "3"); setClockCable(su.clock !== undefined ? String(su.clock) : "");
+      if (su.clock !== undefined) w.push(`1 Hz clock on input ${su.clock + 1}`);
+      if (su.vib) w.push("tone circuit on outputs 1-4");
       if (su.piezo !== undefined) { setPiezo(String(su.piezo)); w.push(`piezo buzzer on output ${su.piezo + 1}`); }
       for (const b of ["G", "H"]) if (su[b] !== undefined) { wire[b].value = String(su[b]); wire[b].dispatchEvent(new Event("change")); w.push(`key ${b} on input ${su[b] + 1}`); }
       if (su.patch) { setPatch(String(su.patch[0]), String(su.patch[1])); w.push(`cable from output ${su.patch[0] + 1} to input ${su.patch[1] + 1}`); }

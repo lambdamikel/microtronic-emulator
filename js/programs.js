@@ -6,13 +6,19 @@ const MICROTRONIC_PROGRAMS = [
 "name": "17+4",
 "title": "17 + 4 (Blackjack)",
 "group": "From the Busch manuals",
-"text": "# Black Jack 17+4\n\n# Verified against the printed listing (Busch Microtronic Computer Games (2094), p. 33) and corrected by Claude Code (Opus 5.5), October 2026.\n\n@ 00\n\nF08\nFE0\n14A\n1DB\n1DC\n1AD\n17E\n11F\nF6A\nFFF\nF02\nB6C\nC12\nF40\nB6C\nFFF\n\nF02\nE2C\n80D\nE15\nC1E\n9A0\nE18\nC1E\n902\nE1B\nC1E\n1A2\n1A3\nC5A\n0D0\n402\n\nD24\n992\nD24\nC26\n513\n562\n923\nE29\nC2C\n912\nE5A\nD60\n917\nD33\nE30\nC36\n\n966\nD33\nC36\n90F\nE53\nC0D\n84E\nE39\nC42\n9A4\nE3C\nC42\n903\nE3F\nC42\n1A6\n\n1A7\nC60\n0E4\n446\nD48\n996\nD48\nC4A\n566\n517\n927\nE4F\n90F\nE53\nC0D\n916\n\nE60\nD5A\nC4C\n837\nE57\nD60\nC5A\n826\nE60\nD60\n1DC\n10D\n10E\n16F\nF4C\nC64\n\n1DD\n1AE\n1BF\nF3D\n1FB\nFEB\nFFB\n104\nFE4\nF62\nFF0\nC00\nF05\n4FE\n9AD\nD71\n\nC73\n57D\nC6E\n9AE\nD76\nF07\n57E\nC73\n"
+"text": "# Black Jack 17+4\n\n# Verified against the printed listing (Busch Microtronic Computer Games (2094), p. 33) and corrected by Claude Code (Opus 5.5), October 2026.\n\n@ 00\n\nF08\nFE0\n14A\n1DB\n1DC\n1AD\n17E\n11F\nF6A\nFFF\nF02\nB6C\nC12\nF40\nB6C\nFFF\n\nF02\nE2C\n80D\nE15\nC1E\n9A0\nE18\nC1E\n902\nE1B\nC1E\n1A2\n1A3\nC5A\n0D0\n402\n\nD24\n992\nD24\nC26\n513\n562\n923\nE29\nC2C\n912\nE5A\nD60\n917\nD33\nE30\nC36\n\n966\nD33\nC36\n90F\nE53\nC0D\n84E\nE39\nC42\n9A4\nE3C\nC42\n903\nE3F\nC42\n1A6\n\n1A7\nC60\n0E4\n446\nD48\n996\nD48\nC4A\n566\n517\n927\nE4F\n90F\nE53\nC0D\n916\n\nE60\nD5A\nC4C\n837\nE57\nD60\nC5A\n826\nE60\nD60\n1DC\n10D\n10E\n16F\nF4C\nC64\n\n1DD\n1AE\n1BF\nF3D\n1FB\nFEB\nFFB\n104\nFE4\nF62\nFF0\nC00\nF05\n4FE\n9AD\nD71\n\nC73\n57D\nC6E\n9AE\nD76\nF07\n57E\nC73\n",
+"setup": {
+"piezo": 0
+}
 },
 {
 "name": "BATTLE",
 "title": "Battle",
 "group": "From the Busch manuals",
-"text": "# Schlacht im Weltraum\n# Space / Battle Ships\n\n# Verified against the printed listing (Busch Microtronic Manual Part 2, p. 6-7) and corrected by Claude Code (Opus 5.5), October 2026.\n\n@ 00\n\nF02\nF08\nFE0\nB53\n0D0\n0E1\nB53\nB6D\nD06\n0D2\n0E3\nB53\nB68\nD0B\n0D4\n0E5\n\nB53\nB63\nD10\n0D6\n0E7\n10D\n10E\n10F\nF28\nFF9\nF28\nFF8\nF02\n51D\nFBE\n880\n\nE22\nC24\n891\nE38\n882\nE27\nC29\n893\nE3A\n884\nE2C\nC2E\n895\nE3C\n886\nE31\n\nC33\n897\nE3E\n1FC\nFEC\n10C\nFEC\nC18\n100\nC40\n102\nC40\n104\nC40\n106\n1FC\n\n1FA\nFEA\n10A\nFEA\n71C\nE47\nC40\n51F\n94F\nE4E\n1AA\n1AB\nF48\nC19\n10F\nF03\n\nF3D\nFF0\nC00\nF05\n90D\nE59\n95D\nD59\nC5B\n59D\nC54\n90E\nE60\n95E\nD60\nC62\n\n53E\nC5B\nF07\n8D4\nE66\nC68\n8E5\nE74\n8D2\nE6B\nC6D\n8E3\nE74\n8D0\nE70\nC72\n\n8E1\nE74\nF0A\nF07\nF09\nF07\n"
+"text": "# Schlacht im Weltraum\n# Space / Battle Ships\n\n# Verified against the printed listing (Busch Microtronic Manual Part 2, p. 6-7) and corrected by Claude Code (Opus 5.5), October 2026.\n\n@ 00\n\nF02\nF08\nFE0\nB53\n0D0\n0E1\nB53\nB6D\nD06\n0D2\n0E3\nB53\nB68\nD0B\n0D4\n0E5\n\nB53\nB63\nD10\n0D6\n0E7\n10D\n10E\n10F\nF28\nFF9\nF28\nFF8\nF02\n51D\nFBE\n880\n\nE22\nC24\n891\nE38\n882\nE27\nC29\n893\nE3A\n884\nE2C\nC2E\n895\nE3C\n886\nE31\n\nC33\n897\nE3E\n1FC\nFEC\n10C\nFEC\nC18\n100\nC40\n102\nC40\n104\nC40\n106\n1FC\n\n1FA\nFEA\n10A\nFEA\n71C\nE47\nC40\n51F\n94F\nE4E\n1AA\n1AB\nF48\nC19\n10F\nF03\n\nF3D\nFF0\nC00\nF05\n90D\nE59\n95D\nD59\nC5B\n59D\nC54\n90E\nE60\n95E\nD60\nC62\n\n53E\nC5B\nF07\n8D4\nE66\nC68\n8E5\nE74\n8D2\nE6B\nC6D\n8E3\nE74\n8D0\nE70\nC72\n\n8E1\nE74\nF0A\nF07\nF09\nF07\n",
+"setup": {
+"piezo": 0
+}
 },
 {
 "name": "BIORYTHM",
@@ -24,7 +30,10 @@ const MICROTRONIC_PROGRAMS = [
 "name": "BLOCKADE",
 "title": "Blockade",
 "group": "From the Busch manuals",
-"text": "# Blockade\n\n# Verified against the printed listing (Busch Microtronic Computer Games (2094), p. 7) and corrected by Claude Code (Opus 5.5), October 2026.\n\n@ 00\n\nF08\nFE0\n1A0\n151\n112\n113\nF2E\nFFF\nFFE\nB76\n91F\nE0F\n92F\nE11\nC00\n0E0\n\nC12\n0E1\nB5B\n664\n675\n845\nE18\nC1B\nB5B\nB60\nC06\nB5B\n516\n864\nD2B\nB5B\n\nB72\n905\nE28\n9F5\nE28\n9E5\nE28\nC2D\nB5B\nB6E\nC2D\nB5B\nB6E\n904\nE34\n9F4\n\nE34\n9E4\nE34\nC36\nB5B\nB72\n91F\nD3B\n042\n02E\nC3D\n053\n03E\n992\nE40\nC42\n\n943\nE43\nC06\n1FA\nFEA\n51B\nD48\nC43\nFE9\n1FB\n1FC\nF3A\nFF0\nC00\n1FA\nFEA\n\n10A\nFEA\n51B\nD55\nC4E\n1CA\n1CB\n1CC\nF3A\nFF0\nC00\n004\n015\n026\n037\nF07\n\n11F\n516\n864\nE67\n062\n02E\nF07\n726\n062\n02E\n924\nE6D\nF07\nC4E\n675\n654\n\n11F\nF07\n664\n645\n12F\nF07\n92F\nE80\n9AE\nD00\n8E2\nD00\nE00\n80E\nE00\nF07\n\n95E\nD00\n8E3\nD00\nE00\n81E\nE00\nF07\n"
+"text": "# Blockade\n\n# Verified against the printed listing (Busch Microtronic Computer Games (2094), p. 7) and corrected by Claude Code (Opus 5.5), October 2026.\n\n@ 00\n\nF08\nFE0\n1A0\n151\n112\n113\nF2E\nFFF\nFFE\nB76\n91F\nE0F\n92F\nE11\nC00\n0E0\n\nC12\n0E1\nB5B\n664\n675\n845\nE18\nC1B\nB5B\nB60\nC06\nB5B\n516\n864\nD2B\nB5B\n\nB72\n905\nE28\n9F5\nE28\n9E5\nE28\nC2D\nB5B\nB6E\nC2D\nB5B\nB6E\n904\nE34\n9F4\n\nE34\n9E4\nE34\nC36\nB5B\nB72\n91F\nD3B\n042\n02E\nC3D\n053\n03E\n992\nE40\nC42\n\n943\nE43\nC06\n1FA\nFEA\n51B\nD48\nC43\nFE9\n1FB\n1FC\nF3A\nFF0\nC00\n1FA\nFEA\n\n10A\nFEA\n51B\nD55\nC4E\n1CA\n1CB\n1CC\nF3A\nFF0\nC00\n004\n015\n026\n037\nF07\n\n11F\n516\n864\nE67\n062\n02E\nF07\n726\n062\n02E\n924\nE6D\nF07\nC4E\n675\n654\n\n11F\nF07\n664\n645\n12F\nF07\n92F\nE80\n9AE\nD00\n8E2\nD00\nE00\n80E\nE00\nF07\n\n95E\nD00\n8E3\nD00\nE00\n81E\nE00\nF07\n",
+"setup": {
+"piezo": 0
+}
 },
 {
 "name": "CALC",
@@ -60,31 +69,47 @@ const MICROTRONIC_PROGRAMS = [
 "name": "HUNDRED",
 "title": "Hundred",
 "group": "From the Busch manuals",
-"text": "# 100 Wins\n\n# Verified against the printed listing (Busch Microtronic Computer Games (2094), p. 15) and corrected by Claude Code (Opus 5.5), October 2026.\n\n@ 00\n\nF02\nF08\nFE0\nF05\n92E\nD07\nC0B\n52F\n6FD\nFCE\nC04\n11B\n1A2\n10F\nF03\nB8B\n\nF60\nB9E\nFF6\nE44\n996\nD11\nC1B\nB9E\nFF6\n996\nD17\n100\n101\n1A2\n060\nFF6\n\n996\nD25\n001\n060\nC1F\n911\nD2D\nE2B\n900\nE2D\nC33\n900\nE33\n100\n101\nB9E\n\nB9E\nB9E\nC18\nBAE\n993\nD37\nC39\n514\n563\n414\n994\nD3D\nC3F\n515\n564\nB90\n\n91A\nE7D\n92A\nE80\n05F\n04E\n03D\nF04\n8CE\nD4E\nE4C\nC51\n8DB\nD51\n5BB\nFBC\n\nC48\n0B8\n0C9\n6D8\nFC9\n6E9\n909\nD6B\n9A8\nD6B\n0BD\n0CE\n10F\nB8A\n998\nD68\n\nBA5\n1C2\nB90\n91A\nE80\n92A\nE7D\nC17\n111\n100\nC61\nF05\n97D\nBA8\nC71\n52D\n\nC6C\n4D3\n993\nD75\nC61\n563\n514\n994\nD7A\nC61\n564\n515\nC61\n1E6\n1E2\nC82\n\n1C6\n1C2\nF52\nB9E\nB9E\nB9E\nB9E\nB9E\nFF0\nC00\nF03\n0D3\n0E4\n0F5\nF07\nF01\n\n915\nE95\nD97\n10A\nF07\n904\nE99\n12A\nF07\n903\nE9C\nC97\n11A\nF07\n1F7\nFE7\n\n737\nEA3\nCA0\nFE7\nF07\n080\n101\nF07\nD6F\n90D\nE6F\n0D0\n101\nF07\n403\nD37\n\nF07\n"
+"text": "# 100 Wins\n\n# Verified against the printed listing (Busch Microtronic Computer Games (2094), p. 15) and corrected by Claude Code (Opus 5.5), October 2026.\n\n@ 00\n\nF02\nF08\nFE0\nF05\n92E\nD07\nC0B\n52F\n6FD\nFCE\nC04\n11B\n1A2\n10F\nF03\nB8B\n\nF60\nB9E\nFF6\nE44\n996\nD11\nC1B\nB9E\nFF6\n996\nD17\n100\n101\n1A2\n060\nFF6\n\n996\nD25\n001\n060\nC1F\n911\nD2D\nE2B\n900\nE2D\nC33\n900\nE33\n100\n101\nB9E\n\nB9E\nB9E\nC18\nBAE\n993\nD37\nC39\n514\n563\n414\n994\nD3D\nC3F\n515\n564\nB90\n\n91A\nE7D\n92A\nE80\n05F\n04E\n03D\nF04\n8CE\nD4E\nE4C\nC51\n8DB\nD51\n5BB\nFBC\n\nC48\n0B8\n0C9\n6D8\nFC9\n6E9\n909\nD6B\n9A8\nD6B\n0BD\n0CE\n10F\nB8A\n998\nD68\n\nBA5\n1C2\nB90\n91A\nE80\n92A\nE7D\nC17\n111\n100\nC61\nF05\n97D\nBA8\nC71\n52D\n\nC6C\n4D3\n993\nD75\nC61\n563\n514\n994\nD7A\nC61\n564\n515\nC61\n1E6\n1E2\nC82\n\n1C6\n1C2\nF52\nB9E\nB9E\nB9E\nB9E\nB9E\nFF0\nC00\nF03\n0D3\n0E4\n0F5\nF07\nF01\n\n915\nE95\nD97\n10A\nF07\n904\nE99\n12A\nF07\n903\nE9C\nC97\n11A\nF07\n1F7\nFE7\n\n737\nEA3\nCA0\nFE7\nF07\n080\n101\nF07\nD6F\n90D\nE6F\n0D0\n101\nF07\n403\nD37\n\nF07\n",
+"setup": {
+"piezo": 0
+}
 },
 {
 "name": "LAWINE",
 "title": "Lawine (Avalanche)",
 "group": "From the Busch manuals",
-"text": "# Zahlenlawine\n\n# Verified against the printed listing (Busch Microtronic Computer Games (2094), p. 5) and corrected by Claude Code (Opus 5.5), October 2026.\n\n@ 00\n\nF08\nFE0\nF02\nF05\n0D2\n0E3\n0F4\nF12\nB39\nF13\nB39\nF14\nB39\nF05\n0D5\n0E6\n\n0F7\nF15\nB39\nF16\nB39\nF17\nB39\nF05\n0D8\n0E9\n0FA\nF18\nB39\nF19\nB39\nF1A\n\nB39\nF05\n0DB\n0EC\nF1B\nB39\nF1C\nB39\nF05\nF1D\nB39\nF1E\nB39\nF1F\nB39\n1FF\n\n10E\n10D\nFEF\nFEE\n51D\nD37\nC32\nFF0\nC00\n511\nC98\nFF0\n802\nE3F\nC8E\n911\n\nE8D\nFF0\n803\nE45\nC8E\n921\nE8D\nFF0\n804\nE4B\nC8E\n931\nE8D\nFF0\n805\nE51\n\nC8E\n941\nE8D\nFF0\n806\nE57\nC8E\n951\nE8D\nFF0\n807\nE5D\nC8E\n961\nE8D\nFF0\n\n808\nE63\nC8E\n971\nE8D\nFF0\n809\nE69\nC8E\n981\nE8D\nFF0\n80A\nE6F\nC8E\n991\n\nE8D\nFF0\n80B\nE75\nC8E\n9A1\nE8D\nFF0\n80C\nE7B\nC8E\n9B1\nE8D\nFF0\n80D\nE81\n\nC8E\n9C1\nE8D\nFF0\n80E\nE87\nC8E\n9D1\nE8D\nFF0\n80F\nE8D\nC8E\nF07\n1F0\nFE0\n\n711\n01D\n10E\n10F\nF03\nF3D\nFF0\nC00\nF01\nF01\nF01\nF01\nF01\nF01\nF02\nC3B\n"
+"text": "# Zahlenlawine\n\n# Verified against the printed listing (Busch Microtronic Computer Games (2094), p. 5) and corrected by Claude Code (Opus 5.5), October 2026.\n\n@ 00\n\nF08\nFE0\nF02\nF05\n0D2\n0E3\n0F4\nF12\nB39\nF13\nB39\nF14\nB39\nF05\n0D5\n0E6\n\n0F7\nF15\nB39\nF16\nB39\nF17\nB39\nF05\n0D8\n0E9\n0FA\nF18\nB39\nF19\nB39\nF1A\n\nB39\nF05\n0DB\n0EC\nF1B\nB39\nF1C\nB39\nF05\nF1D\nB39\nF1E\nB39\nF1F\nB39\n1FF\n\n10E\n10D\nFEF\nFEE\n51D\nD37\nC32\nFF0\nC00\n511\nC98\nFF0\n802\nE3F\nC8E\n911\n\nE8D\nFF0\n803\nE45\nC8E\n921\nE8D\nFF0\n804\nE4B\nC8E\n931\nE8D\nFF0\n805\nE51\n\nC8E\n941\nE8D\nFF0\n806\nE57\nC8E\n951\nE8D\nFF0\n807\nE5D\nC8E\n961\nE8D\nFF0\n\n808\nE63\nC8E\n971\nE8D\nFF0\n809\nE69\nC8E\n981\nE8D\nFF0\n80A\nE6F\nC8E\n991\n\nE8D\nFF0\n80B\nE75\nC8E\n9A1\nE8D\nFF0\n80C\nE7B\nC8E\n9B1\nE8D\nFF0\n80D\nE81\n\nC8E\n9C1\nE8D\nFF0\n80E\nE87\nC8E\n9D1\nE8D\nFF0\n80F\nE8D\nC8E\nF07\n1F0\nFE0\n\n711\n01D\n10E\n10F\nF03\nF3D\nFF0\nC00\nF01\nF01\nF01\nF01\nF01\nF01\nF02\nC3B\n",
+"setup": {
+"piezo": 0
+}
 },
 {
 "name": "LUNAR",
 "title": "Lunar Lander",
 "group": "From the Busch manuals",
-"text": "# Lunar Lander\n\n# Verified against the printed listing (Busch Microtronic Manual Part 1, p. 24) and corrected by Claude Code (Opus 5.5), October 2026.\n\n@ 00\n\nF02\nF08\nFE0\n142\n1F3\n114\n125\n136\n187\n178\n1A1\n02D\n03E\n04F\nF03\nF5D\n\nFFB\nF02\n1B1\n10F\n05D\n06E\nF03\nF5D\nFFB\nF02\n1C1\n07D\n08E\nF03\nF5D\nFFB\n\n10D\n10E\nF2D\nFFB\n99B\nD29\n0DE\n0BD\nC22\nF02\n10F\nF04\n6D7\nFC8\nD69\n6E8\n\nD69\n75D\nFCE\nD5A\n4D2\nFB3\nFB4\n4E3\nFB4\n652\nFC3\nFC4\nD7B\n663\nFC4\nD7B\n\n6D5\nFC6\nD80\n6E6\nD80\n904\nD0A\n903\nD0A\n952\nD0A\n906\nD0A\n955\nD0A\n1E0\n\n1E1\n1E2\n1E3\n1E4\n1E5\n1F6\nFE6\nF60\nFF0\nC00\n6DF\n6F2\nFC3\nFC4\nD7B\n652\n\nFC3\nFC4\nD7B\n663\nFC4\nD7B\n4F5\nFB6\nC45\n1E0\n1A1\n1E2\n1A3\n1FF\n1FE\nFEF\n\n71E\nD73\nC70\nF40\nFEF\n10D\nFED\n71E\nD58\nF02\nC73\n1A0\n1A1\n1A2\n1A3\nC6D\n\n1F0\n1A1\n1F2\n1A3\nC6D\n"
+"text": "# Lunar Lander\n\n# Verified against the printed listing (Busch Microtronic Manual Part 1, p. 24) and corrected by Claude Code (Opus 5.5), October 2026.\n\n@ 00\n\nF02\nF08\nFE0\n142\n1F3\n114\n125\n136\n187\n178\n1A1\n02D\n03E\n04F\nF03\nF5D\n\nFFB\nF02\n1B1\n10F\n05D\n06E\nF03\nF5D\nFFB\nF02\n1C1\n07D\n08E\nF03\nF5D\nFFB\n\n10D\n10E\nF2D\nFFB\n99B\nD29\n0DE\n0BD\nC22\nF02\n10F\nF04\n6D7\nFC8\nD69\n6E8\n\nD69\n75D\nFCE\nD5A\n4D2\nFB3\nFB4\n4E3\nFB4\n652\nFC3\nFC4\nD7B\n663\nFC4\nD7B\n\n6D5\nFC6\nD80\n6E6\nD80\n904\nD0A\n903\nD0A\n952\nD0A\n906\nD0A\n955\nD0A\n1E0\n\n1E1\n1E2\n1E3\n1E4\n1E5\n1F6\nFE6\nF60\nFF0\nC00\n6DF\n6F2\nFC3\nFC4\nD7B\n652\n\nFC3\nFC4\nD7B\n663\nFC4\nD7B\n4F5\nFB6\nC45\n1E0\n1A1\n1E2\n1A3\n1FF\n1FE\nFEF\n\n71E\nD73\nC70\nF40\nFEF\n10D\nFED\n71E\nD58\nF02\nC73\n1A0\n1A1\n1A2\n1A3\nC6D\n\n1F0\n1A1\n1F2\n1A3\nC6D\n",
+"setup": {
+"piezo": 0
+}
 },
 {
 "name": "MORSE",
 "title": "Morse encoder",
 "group": "From the Busch manuals",
-"text": "# Morse Encoder\n\n# Verified against the printed listing (Busch Microtronic Manual Part 2, p. 18-20) and corrected by Claude Code (Opus 5.5), October 2026.\n\n@ 00\n\nF01\nF02\nF08\nFE0\nFF1\n9D1\nD29\n9A1\nEA2\n9B1\nEA9\n9C1\nEBE\nDB0\n155\n951\n\nD1F\n901\nE18\n615\nBD7\n711\nE18\nC14\n905\nE00\nBE3\n715\nC18\nF01\nF01\n751\n\n615\nBE3\n711\nE25\nC21\nBD7\n715\nE00\nC25\nFF2\n9F1\nE46\n902\nE60\n912\nE64\n\n922\nE68\n932\nE6C\n942\nE70\n952\nE74\n962\nE78\n972\nE7C\n982\nE80\n992\nE84\n\n9A2\nE88\n9B2\nE8C\n1B2\nC96\n902\nE62\n912\nE66\n922\nE6A\n932\nE6E\n942\nE72\n\n952\nE76\n962\nE7A\n972\nE7E\n982\nE82\n992\nE86\n9A2\nE8A\n9B2\nE8E\n9C2\nC96\n\n142\nC92\n182\nC96\n1A2\nC96\n182\nC94\n102\nC90\n122\nC96\n1C2\nC94\n102\nC96\n\n102\nC92\n172\nC96\n1A2\nC94\n142\nC96\n1C2\nC92\n182\nC92\n1E2\nC94\n162\nC96\n\n1D2\nC96\n142\nC94\n102\nC94\n182\nC90\n122\nC94\n112\nC96\n162\nC94\n192\nC96\n\n111\nC97\n121\nC97\n131\nC97\n141\nFA2\nD9D\nBD7\n711\nE9F\nC97\nBE3\nC9A\n906\n\nE00\nCC7\nBD7\nBE3\nBD7\nBE3\nBD7\nBE3\nC9F\nBE3\nBE3\nBD7\nBD7\nBE3\nBE3\nC9F\n\nBD7\nBD7\nBD7\n5FF\n5FF\nBE3\nBE3\nBE3\n5FF\n5FF\nBD7\nBD7\nBD7\nC00\n116\nF17\n\nFF7\nF27\nFF8\nEC6\nF60\nCC7\nF02\n1FF\n71F\nECB\nCC8\n4AD\n87D\nDD5\n0D2\n90E\n\nED3\n1E1\nC2A\n1F1\nC2A\n57D\nCCC\n1F4\nFE4\n5FF\n5FF\n104\nFE4\nFDE\nEE1\n53A\n\nF07\n5CA\nF07\n1F4\nFE4\n714\nEE8\nCE5\nFE4\nFDE\nEEC\nF8A\nF07\n"
+"text": "# Morse Encoder\n\n# Verified against the printed listing (Busch Microtronic Manual Part 2, p. 18-20) and corrected by Claude Code (Opus 5.5), October 2026.\n\n@ 00\n\nF01\nF02\nF08\nFE0\nFF1\n9D1\nD29\n9A1\nEA2\n9B1\nEA9\n9C1\nEBE\nDB0\n155\n951\n\nD1F\n901\nE18\n615\nBD7\n711\nE18\nC14\n905\nE00\nBE3\n715\nC18\nF01\nF01\n751\n\n615\nBE3\n711\nE25\nC21\nBD7\n715\nE00\nC25\nFF2\n9F1\nE46\n902\nE60\n912\nE64\n\n922\nE68\n932\nE6C\n942\nE70\n952\nE74\n962\nE78\n972\nE7C\n982\nE80\n992\nE84\n\n9A2\nE88\n9B2\nE8C\n1B2\nC96\n902\nE62\n912\nE66\n922\nE6A\n932\nE6E\n942\nE72\n\n952\nE76\n962\nE7A\n972\nE7E\n982\nE82\n992\nE86\n9A2\nE8A\n9B2\nE8E\n9C2\nC96\n\n142\nC92\n182\nC96\n1A2\nC96\n182\nC94\n102\nC90\n122\nC96\n1C2\nC94\n102\nC96\n\n102\nC92\n172\nC96\n1A2\nC94\n142\nC96\n1C2\nC92\n182\nC92\n1E2\nC94\n162\nC96\n\n1D2\nC96\n142\nC94\n102\nC94\n182\nC90\n122\nC94\n112\nC96\n162\nC94\n192\nC96\n\n111\nC97\n121\nC97\n131\nC97\n141\nFA2\nD9D\nBD7\n711\nE9F\nC97\nBE3\nC9A\n906\n\nE00\nCC7\nBD7\nBE3\nBD7\nBE3\nBD7\nBE3\nC9F\nBE3\nBE3\nBD7\nBD7\nBE3\nBE3\nC9F\n\nBD7\nBD7\nBD7\n5FF\n5FF\nBE3\nBE3\nBE3\n5FF\n5FF\nBD7\nBD7\nBD7\nC00\n116\nF17\n\nFF7\nF27\nFF8\nEC6\nF60\nCC7\nF02\n1FF\n71F\nECB\nCC8\n4AD\n87D\nDD5\n0D2\n90E\n\nED3\n1E1\nC2A\n1F1\nC2A\n57D\nCCC\n1F4\nFE4\n5FF\n5FF\n104\nFE4\nFDE\nEE1\n53A\n\nF07\n5CA\nF07\n1F4\nFE4\n714\nEE8\nCE5\nFE4\nFDE\nEEC\nF8A\nF07\n",
+"setup": {
+"piezo": 0,
+"clock": 3
+}
 },
 {
 "name": "NIMTWO",
 "title": "Nim 2",
 "group": "From the Busch manuals",
-"text": "# Nim 2\n\n# Verified against the printed listing (Busch Microtronic Manual Part 2, p. 12-13) and corrected by Claude Code (Opus 5.5), October 2026.\n\n@ 00\n\nF08\nFE0\nF10\nFF8\nF61\nFF3\nFF2\nFF1\nFF6\nFF5\n905\nE23\nC12\n105\nFF6\nF61\n\nFF5\nE10\n916\nE1E\n926\nE1A\n815\nD0E\n651\nC21\n825\nD0E\n652\nC21\n835\nD0E\n\n653\nB5C\nD4E\nF02\n01D\n02E\nB66\n8D3\nE35\nD42\n03D\n01E\nB66\n8D2\nE35\nD48\n\n02D\n03E\nB66\n8D1\nD4A\n901\nE39\n711\nC3E\n902\nE3D\n712\nC3E\n713\nB5C\nD59\n\nF31\nC0D\n918\nE35\n928\nE35\n0D3\nC3E\n0D2\nC3E\n918\nE35\n0D1\nC3E\n1F0\nFE1\n\n519\nE54\nFE0\nC4F\n1E5\n1E6\nF61\nFF0\nC00\n1F0\nFE0\nC54\n901\nD64\n902\nD64\n\n903\nD64\nF09\nF07\nF0A\nF07\n0EC\n2DC\nAED\nF8D\nACD\nF8D\nF07\n"
+"text": "# Nim 2\n\n# Verified against the printed listing (Busch Microtronic Manual Part 2, p. 12-13) and corrected by Claude Code (Opus 5.5), October 2026.\n\n@ 00\n\nF08\nFE0\nF10\nFF8\nF61\nFF3\nFF2\nFF1\nFF6\nFF5\n905\nE23\nC12\n105\nFF6\nF61\n\nFF5\nE10\n916\nE1E\n926\nE1A\n815\nD0E\n651\nC21\n825\nD0E\n652\nC21\n835\nD0E\n\n653\nB5C\nD4E\nF02\n01D\n02E\nB66\n8D3\nE35\nD42\n03D\n01E\nB66\n8D2\nE35\nD48\n\n02D\n03E\nB66\n8D1\nD4A\n901\nE39\n711\nC3E\n902\nE3D\n712\nC3E\n713\nB5C\nD59\n\nF31\nC0D\n918\nE35\n928\nE35\n0D3\nC3E\n0D2\nC3E\n918\nE35\n0D1\nC3E\n1F0\nFE1\n\n519\nE54\nFE0\nC4F\n1E5\n1E6\nF61\nFF0\nC00\n1F0\nFE0\nC54\n901\nD64\n902\nD64\n\n903\nD64\nF09\nF07\nF0A\nF07\n0EC\n2DC\nAED\nF8D\nACD\nF8D\nF07\n",
+"setup": {
+"piezo": 0
+}
 },
 {
 "name": "NUMGUESS",
@@ -114,13 +139,19 @@ const MICROTRONIC_PROGRAMS = [
 "name": "PRIMES",
 "title": "Prime tester",
 "group": "From the Busch manuals",
-"text": "# Primes\n\n# Verified against the printed listing (Busch Microtronic Computer Games (2094), p. 58-59) and corrected by Claude Code (Opus 5.5), October 2026.\n\n@ 00\n\nF08\nFEF\nF50\nFFE\nFE5\n9BE\nD09\nE0C\nC00\n9CE\nD02\nC16\nFFF\n9AF\nEDA\nD18\n\n034\n023\n012\n001\n0F0\nC0C\nF02\nB77\nF02\nB90\nF0D\nF08\n168\nF0D\nF0F\nB77\n\nF0F\n904\nD2A\n903\nD33\n902\nD36\n901\nD3C\nC3F\n92A\nD2D\nC41\n909\nD30\nC41\n\n958\nD3F\nC41\n90A\nD3F\nC41\n929\nD39\nC41\n918\nD3F\nC41\n909\nD3F\nC41\n1FF\n\nC01\nF70\nF71\nF72\nF73\nF74\n680\nD49\nC4C\n760\n711\nD4F\n691\nD50\nC53\n691\n\n761\n712\nD56\n6A2\nD57\nC5D\n6A2\n762\n713\nD5B\nC5D\n763\n714\n900\nD65\n010\n\n021\n032\n043\n104\nC5D\n904\nD46\n903\nD46\n82A\nD1D\nE6D\nC46\n819\nD1D\nE71\n\nC46\n808\nD1D\nE75\nC46\nF0D\nC17\n510\n990\nD7B\nC90\n560\n511\n991\nD80\nC90\n\n561\n512\n992\nD85\nC90\n562\n513\n993\nD8A\nC90\n563\n514\n994\nD8F\nC90\n564\n\n910\nEA9\n920\nE9D\n930\nE9D\n970\nEA9\n990\nEA9\n950\nE9D\nC77\n904\nDA6\n903\n\nDA6\n902\nDA6\n901\nDA6\nCCF\n930\nEA9\nC77\nF70\nF71\nF72\nF73\nF74\n410\n101\n\n10F\nDD2\n990\nDD2\n420\n102\n11F\nDD2\n990\nDD2\n430\n103\n12F\nDD2\n990\nDD2\n\n440\n104\n13F\nDD2\n990\nDD2\n901\nDAE\n930\nED0\n960\nED0\n990\nED0\nF0D\nF07\n\nF0D\nC77\n560\n511\n92F\nDC4\nEBE\n90F\nDB8\nCB2\nF08\nC0C\n"
+"text": "# Primes\n\n# Verified against the printed listing (Busch Microtronic Computer Games (2094), p. 58-59) and corrected by Claude Code (Opus 5.5), October 2026.\n\n@ 00\n\nF08\nFEF\nF50\nFFE\nFE5\n9BE\nD09\nE0C\nC00\n9CE\nD02\nC16\nFFF\n9AF\nEDA\nD18\n\n034\n023\n012\n001\n0F0\nC0C\nF02\nB77\nF02\nB90\nF0D\nF08\n168\nF0D\nF0F\nB77\n\nF0F\n904\nD2A\n903\nD33\n902\nD36\n901\nD3C\nC3F\n92A\nD2D\nC41\n909\nD30\nC41\n\n958\nD3F\nC41\n90A\nD3F\nC41\n929\nD39\nC41\n918\nD3F\nC41\n909\nD3F\nC41\n1FF\n\nC01\nF70\nF71\nF72\nF73\nF74\n680\nD49\nC4C\n760\n711\nD4F\n691\nD50\nC53\n691\n\n761\n712\nD56\n6A2\nD57\nC5D\n6A2\n762\n713\nD5B\nC5D\n763\n714\n900\nD65\n010\n\n021\n032\n043\n104\nC5D\n904\nD46\n903\nD46\n82A\nD1D\nE6D\nC46\n819\nD1D\nE71\n\nC46\n808\nD1D\nE75\nC46\nF0D\nC17\n510\n990\nD7B\nC90\n560\n511\n991\nD80\nC90\n\n561\n512\n992\nD85\nC90\n562\n513\n993\nD8A\nC90\n563\n514\n994\nD8F\nC90\n564\n\n910\nEA9\n920\nE9D\n930\nE9D\n970\nEA9\n990\nEA9\n950\nE9D\nC77\n904\nDA6\n903\n\nDA6\n902\nDA6\n901\nDA6\nCCF\n930\nEA9\nC77\nF70\nF71\nF72\nF73\nF74\n410\n101\n\n10F\nDD2\n990\nDD2\n420\n102\n11F\nDD2\n990\nDD2\n430\n103\n12F\nDD2\n990\nDD2\n\n440\n104\n13F\nDD2\n990\nDD2\n901\nDAE\n930\nED0\n960\nED0\n990\nED0\nF0D\nF07\n\nF0D\nC77\n560\n511\n92F\nDC4\nEBE\n90F\nDB8\nCB2\nF08\nC0C\n",
+"setup": {
+"piezo": 0
+}
 },
 {
 "name": "RACING",
 "title": "Racing",
 "group": "From the Busch manuals",
-"text": "# Car Racing\n\n# Verified against the printed listing (Busch Microtronic Computer Games (2094), p. 27) and corrected by Claude Code (Opus 5.5), October 2026.\n\n@ 00\n\nF08\n112\n124\nF40\nF05\n8D9\nE0D\n9FD\nE0D\n0D9\n515\nFB6\nC10\n71E\n6ED\nC05\n\nF06\n0A7\n0B8\n967\nD10\n527\nFE9\nFFC\n92C\nE2C\n99C\nE25\n95C\nE26\n91C\nE27\n\n9BC\nE29\n97C\nE2A\nC2B\nF94\nF94\nF94\nC2C\nFA4\nFA4\nFA4\n100\n101\n102\n103\n\n914\nE39\n924\nE3B\n944\nE3D\n984\nE3F\nC49\n113\nC40\n112\nC40\n111\nC40\n110\n\nF06\n87A\nD49\n88B\nE46\nC49\n098\n248\nE04\n10D\n10E\n10F\nF02\n51D\nD50\nC4C\n\nF40\n51E\nD54\nC50\n55F\nD57\nC4C\n10F\n05D\n06E\nF03\nF2D\nFFF\nC00\n"
+"text": "# Car Racing\n\n# Verified against the printed listing (Busch Microtronic Computer Games (2094), p. 27) and corrected by Claude Code (Opus 5.5), October 2026.\n\n@ 00\n\nF08\n112\n124\nF40\nF05\n8D9\nE0D\n9FD\nE0D\n0D9\n515\nFB6\nC10\n71E\n6ED\nC05\n\nF06\n0A7\n0B8\n967\nD10\n527\nFE9\nFFC\n92C\nE2C\n99C\nE25\n95C\nE26\n91C\nE27\n\n9BC\nE29\n97C\nE2A\nC2B\nF94\nF94\nF94\nC2C\nFA4\nFA4\nFA4\n100\n101\n102\n103\n\n914\nE39\n924\nE3B\n944\nE3D\n984\nE3F\nC49\n113\nC40\n112\nC40\n111\nC40\n110\n\nF06\n87A\nD49\n88B\nE46\nC49\n098\n248\nE04\n10D\n10E\n10F\nF02\n51D\nD50\nC4C\n\nF40\n51E\nD54\nC50\n55F\nD57\nC4C\n10F\n05D\n06E\nF03\nF2D\nFFF\nC00\n",
+"setup": {
+"clock": 3
+}
 },
 {
 "name": "RESISTOR",

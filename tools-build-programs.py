@@ -13,6 +13,11 @@ TITLES = {
  'NIMTWO':'Nim 2','NUMGUESS':'Number guessing','POWERS':'Powers','PRIMES-ENUM':'Prime enumerator (to 997, then halts)','PRIMES-LOOP':'Prime enumerator, endless (press a key 0-F for the pause)','PRIMES':'Prime tester',
  'RACING':'Racing','RESISTOR':'Resistor decoder','SINUS':'Sine','SUPERDIV':'Super division','TITATO':'Tic-Tac-Toe','WEEKDAY':'Weekday (with Days)',
 }
+# Wiring the manuals ask for.  piezo: output the buzzer goes to (0 = output 1, the manuals' standard wiring, Part 1 p. 7);
+# clock: input the 1 Hz clock is patched to (3 = input 4).
+WIRING = {n: {'piezo': 0} for n in ('LAWINE', 'BLOCKADE', 'HUNDRED', '17+4', 'PRIMES', 'BATTLE', 'NIMTWO', 'LUNAR')}
+WIRING['RACING'] = {'clock': 3}
+WIRING['MORSE'] = {'piezo': 0, 'clock': 3}
 SKIP = {'HAL9000', 'HELLO'}          # need the speech synthesizer
 SOUND = {'SOUND': 'Sound: scale', 'SEFFECT': 'Sound: effect', 'SEQUENCER': 'Sound: sequencer'}
 # Games by Björn Rathje (programs/rathje/*.MIC): title, repository, and the wiring each one needs.
@@ -30,7 +35,7 @@ for d in sys.argv[1:]:
         text = open(f, errors='replace').read()
         if name in ('WEEKDAY', 'BIORYTHM'):     # these are additions to DAYS: load them on top of it
             text = open(os.path.join(os.path.dirname(f), 'DAYS.MIC')).read() + '\n# ---- addition, from address 51 ----\n' + text
-        if name in TITLES: out.append({'name': name, 'title': TITLES[name], 'group': 'From the Busch manuals', 'text': text})
+        if name in TITLES: out.append({'name': name, 'title': TITLES[name], 'group': 'From the Busch manuals', 'text': text, **({'setup': WIRING[name]} if name in WIRING else {})})
         elif name in SOUND: out.append({'name': name, 'title': SOUND[name], 'group': 'PicoRAM 2090 sound demos', 'text': text})
 VIB = [('ORGAN-LONG', 'Mini organ, long tones'), ('ORGAN-SHORT', 'Mini organ, short tones'), ('COMPOSER', 'The composing computer'),
        ('MUSICBOX', 'Music box: three melodies'), ('LUNAR-SOUND', 'Moon Landing with sound effects')]
