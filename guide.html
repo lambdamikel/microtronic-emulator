@@ -71,6 +71,18 @@ digit, 0 to F: one <i>nibble</i>, four bits.</p>
 <li><b>Four outputs and four inputs,</b> a 1&nbsp;Hz clock signal, and two red push buttons, G and H, that can be wired to inputs.</li>
 </ul>
 <p>Programs cannot change the program memory, and data cannot be executed: instructions and numbers live in separate worlds.</p>
+<h3 id="addons">Add-ons</h3>
+<p>The Microtronic was sold with a few companions, and many experiments in its manuals add small circuits to its terminals. The emulator draws or offers these:</p>
+<table>
+<tr><th>Add-on</th><th>What it is</th><th>In the emulator</th></tr>
+<tr><td><b>2095</b> cassette interface</td><td>A board that plugs in beside the computer and saves programs to, and loads them from, an audio cassette (<kbd>PGM</kbd> <kbd>2</kbd> and <kbd>PGM</kbd> <kbd>1</kbd>).</td><td>Drawn for completeness, but it does nothing: its start key is inert, and PGM 1 or PGM 2 waits for a tape forever (press reset). Use the Save and Open buttons instead.</td></tr>
+<tr><td><b>Piezo buzzer</b></td><td>A small sounder wired between an output and ground. It beeps while that output is on.</td><td>The "Piezosummer" block, wired to output 1, 2, 3 or 4 (most of the manuals' games use output 1).</td></tr>
+<tr><td><b>Tone circuit</b></td><td>A two-transistor oscillator (astable multivibrator) built from parts of the Busch electronics kits, wired to all four outputs. The value on the outputs sets the pitch.</td><td>The "Tongenerator / Multivibrator" block, switched on in the Sound panel. Values 4–F give twelve tones, 0–3 silence.</td></tr>
+<tr><td><b>Red keys G and H</b></td><td>Two push buttons on the front panel, not connected to anything until you wire them to inputs (through a resistor from the supply).</td><td>Wired to an input of your choice; the wires and the 4.7 kΩ resistor are drawn.</td></tr>
+<tr><td><b>Patch cables</b></td><td>Wires between terminals: most often the 1 Hz clock to input 4 (needed by the built-in clock), or an output to an input.</td><td>Both, selectable in the Patch cable panel.</td></tr>
+<tr><td><b>PicoRAM 2090</b></td><td>A modern replacement for the program memory chip, with storage and extra functions such as sound.</td><td>Only its sound instruction (<code>50D</code>) is emulated.</td></tr>
+</table>
+<p>Loading a program from the emulator's library wires up what that program needs.</p>
 
 <h2 id="operate">2. Operating it</h2>
 <p>When the machine is not running a program, the display shows an address at the left and the instruction stored there at the right:
@@ -277,7 +289,7 @@ cannot call another subroutine. The emulator's Inside panel shows the address RE
 such loops. Because the machine is this slow, it pays to count instructions in anything that should feel responsive.</p>
 
 <h2 id="sound">9. Sound</h2>
-<p>The Microtronic has no sound of its own. The emulator offers the three add-ons that were used with it:</p>
+<p>The Microtronic has no sound of its own. The emulator offers the three add-ons that were used with it (see also the <a href="#addons">add-ons table</a>):</p>
 <ul>
 <li><b>The piezo buzzer</b>, connected to an output of your choice. It sounds as long as that output is on. A beep is DOT, a pause, DOT with 0.</li>
 <li><b>The tone circuit</b>, a small two-transistor oscillator connected to all four outputs. The value on the outputs sets the pitch: 4 to F give twelve tones,
@@ -317,7 +329,7 @@ modelled around it at the level of the individual pins. What it adds for conveni
 <li><b>Programs</b>: a library, loading and saving <code>.MIC</code> files, and <b>Load &amp; run</b>. Loading a library program also wires up what it needs.</li>
 <li><b>Inside</b>: address, flags, both register banks, inputs, outputs, the return address, and the whole program with instruction names; click a line to change it.</li>
 <li><b>Speed</b>: from a quarter of the original to a hundred times faster.</li>
-<li><b>Wiring</b>: the red keys, the piezo buzzer, the tone circuit, the clock cable and an output-to-input cable.</li>
+<li><b>Wiring</b>: the red keys, the piezo buzzer, the tone circuit, the clock cable and an output-to-input cable (<a href="#addons">section 1</a>).</li>
 </ul>
 <p>A <code>.MIC</code> file is plain text with one three-digit instruction per line; <code>@ 20</code> continues at address 20, and text after <code>#</code> is a comment.</p>
 
