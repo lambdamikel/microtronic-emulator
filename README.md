@@ -35,6 +35,7 @@ executes roughly 58 Microtronic instructions per second.
   22k / 10k / 4.7k / 2.2k resistors, so the output value sets the pitch. The pitch curve is fitted to the
   manual's own melodies (4 = c, 6 = d, 8 = e, A = f, C = g); values 1-3 give no tone, as the manual says.
   With it come the manual's mini organ, composing computer, music box and the Moon Landing with sound effects.
+- A **Sound off** button silences whatever is sounding until the next tone.
 - **PicoRAM 2090 sound**: the extended op-code `50D` (play note), with arguments
   given as `0xx` literals or `3Fx` register reads, detected on instruction fetch
   as the PicoRAM does. Register arguments are read directly instead of through
@@ -50,14 +51,16 @@ Not emulated: the 2095 cassette interface (its board is drawn, but does nothing)
 - The piezo buzzer block is wired to an output of your choice (default: output 4) and
   sounds while that output is on. A patch cable can connect the 1 Hz clock to an input,
   and another an output to an input. Programs that need particular wiring (Monarch:
-  buzzer on output 1, keys G/H on inputs 1/2; Mensch: output 4 to input 4) are wired
-  automatically when loaded from the library.
+  buzzer on output 1, keys G/H on inputs 1/2; Mensch: output 4 to input 4; the manuals'
+  games: buzzer on output 1; Racing and Morse: clock on input 4) are wired automatically
+  when loaded from the library, and cables a program does not need are taken off.
 - Click the keys, or drive everything from the PC keyboard: `0`–`9` `A`–`F`, `H` HALT, `N`/`Enter`/`Space` NEXT, `R` RUN,
   `S`/`T` STEP, `K` BKP, `G` REG, `P` PGM, `X`/`Backspace` C/CE, `Esc` Reset, `,` key G, `.` key H.
 - Pick a program from the library and press **Load & run**, or open your own
   `.MIC` file. Loading writes program memory directly and then types
   `HALT NEXT 0 0 RUN` on the keypad.
-- The **Inside** panel shows the program counter, flags, both register banks
+- The **Inside** panel shows the program counter, flags, both register banks, the inputs and
+  outputs, the address RET (F07) returns to,
   and a live disassembly of program memory; click a line to edit it.
 - Links: `index.html?load=HANOI&speed=4` (`run=0` loads without starting).
 
