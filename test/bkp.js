@@ -1,0 +1,3 @@
+m.reset(true); m.run(30000); load('110 510 F01 F01 C01'); const B = () => 'bkp cell ' + ((m.ram[33] << 4) | m.ram[32]).toString(16) + ' flag ' + m.ram[34] + ' pc ' + m.vmPC.toString(16) + (m.vmRunning ? ' run' : ' halt');
+console.log('fresh:', B()); keys('HALT BKP 0 3'); console.log('BKP 03:', B()); keys('HALT NEXT 0 0 RUN'); m.run(200000); console.log('RUN:', B()); keys('RUN'); m.run(200000); console.log('RUN again:', B());
+keys('HALT NEXT 0 0'); console.log('browse to 00:', B()); keys('NEXT'); console.log('NEXT:', B()); keys('STEP'); console.log('STEP:', B()); keys('HALT BKP 0 0'); console.log('BKP 00:', B()); keys('HALT NEXT 0 0 RUN'); m.run(100000); console.log('RUN free:', B());

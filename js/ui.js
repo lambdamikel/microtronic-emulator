@@ -349,7 +349,7 @@
     return `${F1[h]} ${X(l)}`;
   }
   const listing = $("listing"), rows = [], shown = new Int16Array(256).fill(-1);
-  let pcRow = -1, editing = false;
+  let pcRow = -1, bkRow = -2, editing = false;
   for (let a = 0; a < 256; a++) { const d = document.createElement("div"); d.dataset.a = a; listing.appendChild(d); rows.push(d); }
   function renderRow(a) {
     const w = m.readWord(a); shown[a] = w;
@@ -383,8 +383,11 @@
       `PC ${hex(pc, 2)}   ${m.vmRunning ? "RUN " : "HALT"}   carry ${fl & 1}  zero ${(fl >> 1) & 1}\n` +
       `      0 1 2 3 4 5 6 7 8 9 A B C D E F\n` +
       `work  ${r}\nmem   ${x}\n` +
-      `in  1-4  ${bits4(m.inputPins)}\nout 1-4  ${bits4(m.outputPins)}\nRET (F07) returns to ${hex(m.vmReturn, 2)}`;
+      `in  1-4  ${bits4(m.inputPins)}\nout 1-4  ${bits4(m.outputPins)}`;
     if (!editing) for (let a = 0; a < 256; a++) if (shown[a] !== m.readWord(a)) renderRow(a);
+    const bk = m.vmBreakpoint;
+    $("pcval").textContent = hex(pc, 2); $("bkval").textContent = bk < 0 ? "none" : hex(bk, 2); $("retval").textContent = hex(m.vmReturn, 2);
+    if (bk !== bkRow) { if (bkRow >= 0) rows[bkRow].classList.remove("bk"); if (bk >= 0) rows[bk].classList.add("bk"); bkRow = bk; }
     if (pc !== pcRow) {
       if (pcRow >= 0) rows[pcRow].classList.remove("pc");
       rows[pc].classList.add("pc"); pcRow = pc;

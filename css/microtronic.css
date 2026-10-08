@@ -184,3 +184,8 @@ button.jack:hover { box-shadow: 0 0 0 .16cqw #f2c81e; }
 .taster.vibblock.off { opacity: .45; }
 #tools input[type=range] { flex: 1 1 80px; }
 header a { color: var(--accent); }
+#ptrs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; font: 12.5px ui-monospace, Menlo, Consolas, monospace; }
+.tag { padding: 1px 8px; border-radius: 4px; color: #fff; } .tag.pc { background: var(--accent); } .tag.bk { background: #2f6fd0; } .tag.ret { background: none; color: var(--muted); border: 1px solid var(--line); }
+@media (prefers-color-scheme: dark) { .tag.pc { color: #1a0c0b; } }
+#listing div.bk { background: #2f6fd0; color: #fff; } #listing div.bk.nop { color: #fff; }
+#listing div.pc.bk { background: linear-gradient(90deg, var(--accent) 0 50%, #2f6fd0 50%); color: #fff; }

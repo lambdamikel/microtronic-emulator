@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Busch Microtronic 2090 Emulator</title>
-<link rel="stylesheet" href="css/microtronic.css?v=202610072037">
+<link rel="stylesheet" href="css/microtronic.css?v=202610080259">
 </head>
 <body>
 <header>
@@ -134,9 +134,10 @@
 
   <div class="panel">
     <h2>Inside</h2>
+    <div id="ptrs"><span class="tag pc">Address <b id="pcval">00</b></span> <span class="tag bk">Breakpoint <b id="bkval">none</b></span> <span class="tag ret">RET returns to <b id="retval">00</b></span></div>
     <div id="state"></div>
     <div id="listing" tabindex="0" aria-label="Program memory"></div>
-    <p class="note">Click a line to edit that instruction; the program counter line is highlighted.</p>
+    <p class="note">Red line: the current address (program counter). Blue line: the breakpoint, if one is set with BKP. Click a line to edit that instruction.</p>
   </div>
 
   <div class="panel help">
@@ -178,9 +179,9 @@
   Source: <a href="https://github.com/lambdamikel/microtronic-emulator">github.com/lambdamikel/microtronic-emulator</a> (GPL-3; the firmware ROM remains © Busch).</p>
 </footer>
 
-<script src="js/rom.js?v=202610072037"></script>
-<script src="js/programs.js?v=202610072037"></script>
-<script src="js/tms1600.js?v=202610072037"></script>
-<script src="js/ui.js?v=202610072037"></script>
+<script src="js/rom.js?v=202610080259"></script>
+<script src="js/programs.js?v=202610080259"></script>
+<script src="js/tms1600.js?v=202610080259"></script>
+<script src="js/ui.js?v=202610080259"></script>
 </body>
 </html>
