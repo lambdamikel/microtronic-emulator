@@ -1,0 +1,27 @@
+# Tone circuit: twelve tones
+# Steps through the output values 4 to F on the tone circuit.
+# An example from the emulator's programmer's guide (guide.html).
+
+@ 00
+
+F10
+140
+FE0
+B10
+510
+D01
+C02
+000
+000
+000
+000
+000
+000
+000
+000
+000
+18F
+51F
+D14
+C11
+F07

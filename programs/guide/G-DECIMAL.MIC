@@ -1,0 +1,27 @@
+# Decimal counter 00-99
+# Two registers as units and tens, with a carry at ten.
+# An example from the emulator's programmer's guide (guide.html).
+
+@ 00
+
+F20
+B10
+510
+9A0
+E06
+C01
+100
+511
+9A1
+E0B
+C01
+101
+C01
+000
+000
+000
+1CF
+51F
+D14
+C11
+F07

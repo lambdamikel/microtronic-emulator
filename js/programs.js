@@ -3,6 +3,80 @@
 "use strict";
 const MICROTRONIC_PROGRAMS = [
 {
+"name": "G-FIRST",
+"title": "First program: show a number",
+"group": "Examples from the guide",
+"setup": {},
+"text": "# First program: show a number\n# Shows 5 in the right-hand digit. The last instruction jumps to itself, so the number stays on the display; press HALT to stop.\n# An example from the emulator's programmer's guide (guide.html).\n\n@ 00\n\n150\nF10\nC02\n"
+},
+{
+"name": "G-COUNT",
+"title": "Hex counter on display and LEDs",
+"group": "Examples from the guide",
+"setup": {},
+"text": "# Hex counter on display and LEDs\n# Counts 0 to F over and over; the output LEDs show the same number in binary.\n# An example from the emulator's programmer's guide (guide.html).\n\n@ 00\n\nF10\nFE0\nB08\n510\nC01\n000\n000\n000\n18F\n51F\nD0C\nC09\nF07\n"
+},
+{
+"name": "G-DECIMAL",
+"title": "Decimal counter 00-99",
+"group": "Examples from the guide",
+"setup": {},
+"text": "# Decimal counter 00-99\n# Two registers as units and tens, with a carry at ten.\n# An example from the emulator's programmer's guide (guide.html).\n\n@ 00\n\nF20\nB10\n510\n9A0\nE06\nC01\n100\n511\n9A1\nE0B\nC01\n101\nC01\n000\n000\n000\n1CF\n51F\nD14\nC11\nF07\n"
+},
+{
+"name": "G-KEYS",
+"title": "Keys to display and LEDs",
+"group": "Examples from the guide",
+"setup": {},
+"text": "# Keys to display and LEDs\n# Press any hex key: it appears on the display and, in binary, on the output LEDs.\n# An example from the emulator's programmer's guide (guide.html).\n\n@ 00\n\nF10\nFF0\nFE0\nC01\n"
+},
+{
+"name": "G-ADD",
+"title": "Adding two keys, result in decimal",
+"group": "Examples from the guide",
+"setup": {},
+"text": "# Adding two keys, result in decimal\n# Press two hex keys; their sum is shown as a decimal number.\n# An example from the emulator's programmer's guide (guide.html).\n\n@ 00\n\nF08\nF2D\nFF0\nFFD\n10E\n10F\n40D\nFBE\nF03\nF2D\nC02\n"
+},
+{
+"name": "G-INOUT",
+"title": "Inputs to outputs",
+"group": "Examples from the guide",
+"setup": {},
+"text": "# Inputs to outputs\n# The four inputs are copied to the four outputs. Hold the red keys G and H (wired to inputs 1 and 2) or plug in input jacks.\n# An example from the emulator's programmer's guide (guide.html).\n\n@ 00\n\nF10\nFD0\nFE0\nC01\n"
+},
+{
+"name": "G-DICE",
+"title": "Dice",
+"group": "Examples from the guide",
+"setup": {},
+"text": "# Dice\n# Press any key to roll: a number from 1 to 6.\n# An example from the emulator's programmer's guide (guide.html).\n\n@ 00\n\nF1D\nFF0\nF05\n95D\nD02\n51D\nC01\n"
+},
+{
+"name": "G-MULT",
+"title": "Multiplying with MULT",
+"group": "Examples from the guide",
+"setup": {},
+"text": "# Multiplying with MULT\n# 7 x 8 = 56, using the built-in multiplication. Ends in a jump to itself so the result stays on the display.\n# An example from the emulator's programmer's guide (guide.html).\n\n@ 00\n\nF08\n170\nF70\n180\nF0B\nF20\nC06\n"
+},
+{
+"name": "G-CLOCK",
+"title": "Clock: hours, minutes, seconds",
+"group": "Examples from the guide",
+"setup": {
+"clock": 3
+},
+"text": "# Clock: hours, minutes, seconds\n# Shows the built-in clock running; it starts at 00 00 00. Needs the 1 Hz clock on input 4.\n# An example from the emulator's programmer's guide (guide.html).\n\n@ 00\n\nF6A\nF06\nC01\n"
+},
+{
+"name": "G-TONES",
+"title": "Tone circuit: twelve tones",
+"group": "Examples from the guide",
+"setup": {
+"vib": true
+},
+"text": "# Tone circuit: twelve tones\n# Steps through the output values 4 to F on the tone circuit.\n# An example from the emulator's programmer's guide (guide.html).\n\n@ 00\n\nF10\n140\nFE0\nB10\n510\nD01\nC02\n000\n000\n000\n000\n000\n000\n000\n000\n000\n18F\n51F\nD14\nC11\nF07\n"
+},
+{
 "name": "17+4",
 "title": "17 + 4 (Blackjack)",
 "group": "From the Busch manuals",

@@ -1,0 +1,10 @@
+# Keys to display and LEDs
+# Press any hex key: it appears on the display and, in binary, on the output LEDs.
+# An example from the emulator's programmer's guide (guide.html).
+
+@ 00
+
+F10
+FF0
+FE0
+C01

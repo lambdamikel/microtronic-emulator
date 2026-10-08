@@ -1,0 +1,9 @@
+# First program: show a number
+# Shows 5 in the right-hand digit. The last instruction jumps to itself, so the number stays on the display; press HALT to stop.
+# An example from the emulator's programmer's guide (guide.html).
+
+@ 00
+
+150
+F10
+C02

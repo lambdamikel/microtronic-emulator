@@ -1,0 +1,10 @@
+# Inputs to outputs
+# The four inputs are copied to the four outputs. Hold the red keys G and H (wired to inputs 1 and 2) or plug in input jacks.
+# An example from the emulator's programmer's guide (guide.html).
+
+@ 00
+
+F10
+FD0
+FE0
+C01

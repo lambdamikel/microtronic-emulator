@@ -56,6 +56,10 @@ Not emulated: the 2095 cassette interface (its board is drawn, but does nothing)
   when loaded from the library, and cables a program does not need are taken off.
 - Click the keys, or drive everything from the PC keyboard: `0`–`9` `A`–`F`, `H` HALT, `N`/`Enter`/`Space` NEXT, `R` RUN,
   `S`/`T` STEP, `K` BKP, `G` REG, `P` PGM, `X`/`Backspace` C/CE, `Esc` Reset, `,` key G, `.` key H.
+- **[Programmer's guide](https://lambdamikel.github.io/microtronic-emulator/guide.html)** ([PDF](Microtronic_Guide.pdf)): an
+  independent English guide to operating and programming the Microtronic, with every instruction,
+  the flags, inputs and outputs and worked examples, all tried on the firmware. Its ten example
+  programs are in the library.
 - Pick a program from the library and press **Load & run**, or open your own
   `.MIC` file. Loading writes program memory directly and then types
   `HALT NEXT 0 0 RUN` on the keypad.

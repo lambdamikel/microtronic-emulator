@@ -1,0 +1,4 @@
+function run(words, t){ m.reset(true); for (let i = 0; i < 256; i++) m.writeWord(i, 0); load(words); m.run(30000); keys('HALT NEXT 0 0 RUN'); m.run(t || 120000); const fl = m.ram[77]; return 'r0=' + m.vmReg(0).toString(16) + ' r1=' + m.vmReg(1).toString(16) + ' C' + (fl & 1) + ' Z' + ((fl >> 1) & 1); }
+const T = (n, w) => console.log(n.padEnd(28), run(w));
+T('STC; MOVI 5,0', 'F09 150 F00'); T('STC; MOV 0,1 (r0=3)', '130 F09 001 F00'); T('STC; ANDI 3,0 (r0=F)', '1F0 F09 330 F00'); T('STC; OR', '130 141 F09 A01 F00'); T('STC; INV 0', '150 F09 F80 F00');
+T('ANDI 1,0 on 6 (zero?)', '160 310 F00'); T('SHR 1 -> 0', '110 F90 F00'); T('SHL 8 -> 0', '180 FA0 F00'); T('INV F -> 0', '1F0 F80 F00'); T('STC; DOT 0', '150 F09 FE0 F00'); T('STC; DISP', '150 F09 F10 F00'); T('STC; CMPI 5,0 r0=5', '150 F09 950 F00'); T('STC; KIN?', '150 F09 F01 F00');

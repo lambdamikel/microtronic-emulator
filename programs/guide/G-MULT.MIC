@@ -1,0 +1,13 @@
+# Multiplying with MULT
+# 7 x 8 = 56, using the built-in multiplication. Ends in a jump to itself so the result stays on the display.
+# An example from the emulator's programmer's guide (guide.html).
+
+@ 00
+
+F08
+170
+F70
+180
+F0B
+F20
+C06

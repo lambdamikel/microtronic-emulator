@@ -1,0 +1,19 @@
+# Hex counter on display and LEDs
+# Counts 0 to F over and over; the output LEDs show the same number in binary.
+# An example from the emulator's programmer's guide (guide.html).
+
+@ 00
+
+F10
+FE0
+B08
+510
+C01
+000
+000
+000
+18F
+51F
+D0C
+C09
+F07

@@ -1,0 +1,13 @@
+# Dice
+# Press any key to roll: a number from 1 to 6.
+# An example from the emulator's programmer's guide (guide.html).
+
+@ 00
+
+F1D
+FF0
+F05
+95D
+D02
+51D
+C01

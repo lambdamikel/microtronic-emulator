@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Busch Microtronic 2090 — a programmer's guide</title>
+<style>
+:root { --bg: #fbfaf7; --ink: #1f2226; --muted: #5d6470; --line: #d6d2c8; --accent: #a3211c; --panel: #f1efe8; }
+@media (prefers-color-scheme: dark) { :root { --bg: #17191c; --ink: #e6e4df; --muted: #9aa0aa; --line: #383c42; --accent: #ff6a5e; --panel: #212428; } }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.55 Georgia, "Times New Roman", serif; }
+nav { position: fixed; left: 0; top: 0; bottom: 0; width: 260px; overflow-y: auto; padding: 14px 12px 30px; border-right: 1px solid var(--line); background: var(--panel); font: 14px/1.4 system-ui, sans-serif; }
+nav b { display: block; font-size: 16px; margin-bottom: 8px; } nav a { display: block; padding: 2px 0; color: var(--ink); text-decoration: none; } nav a:hover { color: var(--accent); } nav a.sub { padding-left: 12px; font-size: 13px; }
+main { margin-left: 260px; max-width: 880px; padding: 22px 40px 80px; }
+@media (max-width: 900px) { nav { position: static; width: auto; border-right: 0; border-bottom: 1px solid var(--line); } main { margin-left: 0; padding: 16px; } }
+h1 { font: 700 2rem/1.2 system-ui, sans-serif; margin: 0 0 .2em; }
+h2 { font: 700 1.45rem/1.25 system-ui, sans-serif; margin: 2.2em 0 .5em; padding-top: .5em; border-top: 3px solid var(--accent); }
+h3 { font: 700 1.1rem/1.25 system-ui, sans-serif; margin: 1.5em 0 .4em; }
+p, ul, ol { margin: 0 0 .8em; } li { margin-bottom: .25em; }
+.lead { color: var(--muted); font: 15px/1.5 system-ui, sans-serif; }
+figure { margin: 1.2em 0; text-align: center; } figure img { max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 4px; }
+figcaption { font: 13.5px/1.35 system-ui, sans-serif; color: var(--muted); margin-top: .35em; }
+kbd { font: 700 .82em system-ui, sans-serif; border: 1px solid var(--muted); border-bottom-width: 2px; border-radius: 5px; padding: 0 .4em; background: var(--panel); white-space: nowrap; }
+code, pre, .d { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
+.d { background: #2a0a0e; color: #ff5a66; padding: 1px 7px; border-radius: 3px; white-space: pre; letter-spacing: .08em; }
+pre { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 10px 14px; overflow-x: auto; line-height: 1.45; }
+table { border-collapse: collapse; font: 14.5px/1.4 system-ui, sans-serif; margin: 1em 0; width: 100%; } th, td { border: 1px solid var(--line); padding: 4px 9px; text-align: left; vertical-align: top; }
+th { background: var(--panel); } td.c { font-family: ui-monospace, Menlo, Consolas, monospace; white-space: nowrap; font-weight: 700; }
+.box { border: 1px solid var(--line); background: var(--panel); border-radius: 6px; padding: 10px 14px; margin: 1em 0; font: 15px/1.5 system-ui, sans-serif; }
+a { color: var(--accent); }
+.try { font: 14px system-ui, sans-serif; }
+@media print { nav { display: none; } main { margin: 0; max-width: none; padding: 0; } body { font-size: 11pt; background: #fff; color: #000; } pre, table, figure, .box { break-inside: avoid; } h2 { break-before: page; } h2, h3 { break-after: avoid; } @page { size: A4; margin: 18mm 16mm; } }
+</style>
+</head>
+<body>
+<nav>
+  <b>Busch Microtronic 2090<br>a programmer's guide</b>
+  <a href="#machine">1. The machine</a>
+  <a href="#operate">2. Operating it</a>
+  <a href="#instr">3. The instructions</a>
+  <a href="#first">4. First programs</a>
+  <a href="#flags">5. Carry, zero and decisions</a>
+  <a href="#io">6. Inputs and outputs</a>
+  <a href="#math">7. Decimal numbers and arithmetic</a>
+  <a href="#sub">8. Subroutines and delays</a>
+  <a href="#sound">9. Sound</a>
+  <a href="#debug">10. Finding mistakes</a>
+  <a href="#pgm">11. Built-in functions</a>
+  <a href="#emu">12. About the emulator</a>
+  <a href="#ref">Quick reference</a>
+  <a href="index.html" style="margin-top:14px;font-weight:700">▶ Open the emulator</a>
+</nav>
+<main>
+<h1>Busch Microtronic 2090 — a programmer's guide</h1>
+<p class="lead">How to operate and program the 1981 Busch Microtronic 2090, written for the <a href="index.html">browser emulator</a>, which runs the
+machine's original firmware. Everything described here was tried on that firmware. This is an independent guide in its own words. The original
+manuals, with many more programs and experiments, are available <a href="https://lambdamikel.github.io/microtronic-2090-manuals-english/">in English translation</a>.</p>
+
+<h2 id="machine">1. The machine</h2>
+<p>The Microtronic is a 4-bit teaching computer. Inside, a TMS1600 microcontroller runs a fixed program, the firmware, which makes the box behave like
+a simple imaginary computer with its own instruction set. That imaginary computer is what you program. Everything in it is a single hexadecimal
+digit, 0 to F: one <i>nibble</i>, four bits.</p>
+<figure><img src="img/guide-console.png" alt="The Microtronic in the emulator" width="1770" height="921">
+<figcaption>The Microtronic console in the emulator. Top right: the computer board with outputs, reset key, inputs and clock. Bottom: flag LEDs, display and keypad.</figcaption></figure>
+<ul>
+<li><b>Program memory.</b> 256 places, addresses 00 to FF. Each holds one instruction of three hex digits, such as <code>510</code>.</li>
+<li><b>Sixteen working registers,</b> 0 to F. Each holds one hex digit. This is where a program keeps its numbers; there is no other data memory.</li>
+<li><b>Sixteen memory registers,</b> a second bank of the same size. A program cannot work on them directly, only copy to them and swap them with the working registers.</li>
+<li><b>Two flags,</b> carry and zero, each with an LED. Instructions set them as a side effect, and two jump instructions test them.</li>
+<li><b>A six-digit display,</b> which shows registers, never memory, while a program runs.</li>
+<li><b>Four outputs and four inputs,</b> a 1&nbsp;Hz clock signal, and two red push buttons, G and H, that can be wired to inputs.</li>
+</ul>
+<p>Programs cannot change the program memory, and data cannot be executed: instructions and numbers live in separate worlds.</p>
+
+<h2 id="operate">2. Operating it</h2>
+<p>When the machine is not running a program, the display shows an address at the left and the instruction stored there at the right:
+<span class="d">00 F10</span> means address 00 holds F10.</p>
+<figure><img src="img/guide-front.png" alt="Front panel" width="1770" height="285"><figcaption>The front panel: red keys G and H, carry and zero LEDs, display, hex keys and function keys.</figcaption></figure>
+<table>
+<tr><th>Keys</th><th>What happens</th></tr>
+<tr><td><kbd>HALT</kbd> <kbd>NEXT</kbd> then two hex digits</td><td>Go to that address. <code>HALT NEXT 0 0</code> goes to the start.</td></tr>
+<tr><td>three hex digits, <kbd>NEXT</kbd></td><td>Stores the instruction at the address shown and moves to the next address.</td></tr>
+<tr><td><kbd>NEXT</kbd> alone</td><td>Moves to the next address without changing anything: use it to read a program back.</td></tr>
+<tr><td><kbd>C/CE</kbd></td><td>Deletes the last digit you typed. <kbd>NEXT</kbd> only stores once three digits are there.</td></tr>
+<tr><td><kbd>RUN</kbd></td><td>Runs the program from the address shown.</td></tr>
+<tr><td><kbd>HALT</kbd></td><td>Stops a running program. <kbd>RUN</kbd> then continues from where it stopped.</td></tr>
+<tr><td><kbd>STEP</kbd></td><td>Carries out one instruction and stops.</td></tr>
+<tr><td><kbd>REG</kbd> then a hex digit</td><td>Shows that working register, e.g. <span class="d">  1  9</span>: register 1 holds 9. A further hex digit changes its value. <kbd>HALT</kbd> returns.</td></tr>
+<tr><td><kbd>BKP</kbd> then two hex digits</td><td>Sets a breakpoint: a running program stops when it reaches that address. <code>BKP 0 0</code> removes it.</td></tr>
+<tr><td><kbd>PGM</kbd> then a digit</td><td>Calls a built-in function; see <a href="#pgm">section 11</a>.</td></tr>
+<tr><td>the green reset key</td><td>Restarts the firmware. The program stays in memory; the registers and the clock are cleared.</td></tr>
+</table>
+<div class="box">Entering a program: <kbd>HALT</kbd> <kbd>NEXT</kbd> <kbd>0</kbd> <kbd>0</kbd>, then three digits and <kbd>NEXT</kbd> for each instruction.
+Starting it: <kbd>HALT</kbd> <kbd>NEXT</kbd> <kbd>0</kbd> <kbd>0</kbd> <kbd>RUN</kbd>.</div>
+<p>In the emulator you can skip the typing: pick a program and press <b>Load &amp; run</b>, or click a line in the <b>Inside</b> panel and edit it.
+The whole keypad is also on the PC keyboard: <kbd>H</kbd> HALT, <kbd>N</kbd> NEXT, <kbd>R</kbd> RUN and so on, so <code>H N 0 0 R</code> starts a program.</p>
+
+<h2 id="instr">3. The instructions</h2>
+<p>An instruction is three hex digits. The first says what to do; the other two say with what. In the table, <i>s</i> and <i>d</i> are register numbers
+(source and destination), <i>n</i> is a constant 0–F, and <i>aa</i> is a two-digit address.</p>
+<table>
+<tr><th>Code</th><th>Name</th><th>What it does</th></tr>
+<tr><td class="c">0sd</td><td>MOV s,d</td><td>Copy register s to register d.</td></tr>
+<tr><td class="c">1nd</td><td>MOVI n,d</td><td>Put the constant n into register d.</td></tr>
+<tr><td class="c">2sd</td><td>AND s,d</td><td>d := d AND s, bit by bit.</td></tr>
+<tr><td class="c">3nd</td><td>ANDI n,d</td><td>d := d AND n.</td></tr>
+<tr><td class="c">4sd</td><td>ADD s,d</td><td>d := d + s.</td></tr>
+<tr><td class="c">5nd</td><td>ADDI n,d</td><td>d := d + n.</td></tr>
+<tr><td class="c">6sd</td><td>SUB s,d</td><td>d := d − s.</td></tr>
+<tr><td class="c">7nd</td><td>SUBI n,d</td><td>d := d − n.</td></tr>
+<tr><td class="c">8sd</td><td>CMP s,d</td><td>Compare register s with register d; only the flags change.</td></tr>
+<tr><td class="c">9nd</td><td>CMPI n,d</td><td>Compare the constant n with register d; only the flags change.</td></tr>
+<tr><td class="c">Asd</td><td>OR s,d</td><td>d := d OR s, bit by bit.</td></tr>
+<tr><td class="c">Baa</td><td>CALL aa</td><td>Jump to the subroutine at aa, remembering where to come back to.</td></tr>
+<tr><td class="c">Caa</td><td>GOTO aa</td><td>Jump to aa.</td></tr>
+<tr><td class="c">Daa</td><td>BRC aa</td><td>Jump to aa if the carry flag is set.</td></tr>
+<tr><td class="c">Eaa</td><td>BRZ aa</td><td>Jump to aa if the zero flag is set.</td></tr>
+</table>
+<p>Codes beginning with F are a second family without a source register:</p>
+<table>
+<tr><th>Code</th><th>Name</th><th>What it does</th></tr>
+<tr><td class="c">F00</td><td>HALT</td><td>Stop the program.</td></tr>
+<tr><td class="c">F01</td><td>NOP</td><td>Do nothing.</td></tr>
+<tr><td class="c">F02</td><td>DISOUT</td><td>Switch the display off.</td></tr>
+<tr><td class="c">F03</td><td>HXDZ</td><td>Convert the hex number in registers D, E, F to decimal digits (<a href="#math">section 7</a>).</td></tr>
+<tr><td class="c">F04</td><td>DZHX</td><td>The reverse: decimal digits in D, E, F to a hex number.</td></tr>
+<tr><td class="c">F05</td><td>RND</td><td>Put random digits into registers D, E, F.</td></tr>
+<tr><td class="c">F06</td><td>TIME</td><td>Copy the clock into registers A to F.</td></tr>
+<tr><td class="c">F07</td><td>RET</td><td>Return from a subroutine.</td></tr>
+<tr><td class="c">F08</td><td>CLEAR</td><td>Set all working registers to 0.</td></tr>
+<tr><td class="c">F09</td><td>STC</td><td>Set the carry flag.</td></tr>
+<tr><td class="c">F0A</td><td>RSC</td><td>Clear the carry flag.</td></tr>
+<tr><td class="c">F0B</td><td>MULT</td><td>Decimal multiplication (<a href="#math">section 7</a>).</td></tr>
+<tr><td class="c">F0C</td><td>DIV</td><td>Decimal division.</td></tr>
+<tr><td class="c">F0D</td><td>EXRL</td><td>Swap working registers 0–7 with memory registers 0–7.</td></tr>
+<tr><td class="c">F0E</td><td>EXRM</td><td>Swap working registers 8–F with memory registers 8–F.</td></tr>
+<tr><td class="c">F0F</td><td>EXRA</td><td>Swap all sixteen.</td></tr>
+<tr><td class="c">Fnd</td><td>DISP n,d</td><td>For n = 1 to 6: show n registers on the display, starting with register d at the right.</td></tr>
+<tr><td class="c">F7d</td><td>MAS d</td><td>Copy working register d to memory register d.</td></tr>
+<tr><td class="c">F8d</td><td>INV d</td><td>Invert all four bits of register d.</td></tr>
+<tr><td class="c">F9d</td><td>SHR d</td><td>Shift register d one bit to the right; the bit pushed out goes to the carry flag.</td></tr>
+<tr><td class="c">FAd</td><td>SHL d</td><td>Shift register d one bit to the left; the bit pushed out goes to the carry flag.</td></tr>
+<tr><td class="c">FBd</td><td>ADC d</td><td>Add the carry flag to register d.</td></tr>
+<tr><td class="c">FCd</td><td>SUBC d</td><td>Subtract the carry flag from register d.</td></tr>
+<tr><td class="c">FDd</td><td>DIN d</td><td>Read the four inputs into register d.</td></tr>
+<tr><td class="c">FEd</td><td>DOT d</td><td>Put register d on the four outputs.</td></tr>
+<tr><td class="c">FFd</td><td>KIN d</td><td>Wait for a hex key and put it into register d.</td></tr>
+</table>
+
+<h2 id="first">4. First programs</h2>
+<p>The programs below are in the emulator's library under "Examples from the guide". They are written as address, code and name.</p>
+<h3>Show a number</h3>
+<pre>00 150  MOVI 5,0   register 0 := 5
+01 F10  DISP 1,0   show one register, register 0
+02 C02  GOTO 02    stay here</pre>
+<p>The display shows 5 in its right-hand digit. Nothing appears until a program says what to show: <b>DISP</b> is a switch that stays set, so one DISP at the start
+is enough, and the display then follows the registers by itself. The last line is a loop on the spot. If a program ends with HALT instead, the display goes back
+to showing address and instruction, and you would look at the result with <kbd>REG</kbd>. <span class="try"><a href="index.html?load=G-FIRST">Try it</a></span></p>
+<h3>A counter</h3>
+<pre>00 F10  DISP 1,0
+01 FE0  DOT 0      register 0 to the four output LEDs
+02 B08  CALL 08    wait a moment (subroutine)
+03 510  ADDI 1,0   register 0 := register 0 + 1
+04 C01  GOTO 01</pre>
+<p>Register 0 counts 0, 1, 2 … 9, A, B … F and then starts again at 0, because a register only has four bits. The output LEDs show the same value in binary:
+output 1 counts 1, output 2 counts 2, output 3 counts 4, output 4 counts 8. The wait is explained in <a href="#sub">section 8</a>. <span class="try"><a href="index.html?load=G-COUNT">Try it</a></span></p>
+<h3>Reading the keyboard</h3>
+<pre>00 F10  DISP 1,0
+01 FF0  KIN 0      wait for a key, put it in register 0
+02 FE0  DOT 0
+03 C01  GOTO 01</pre>
+<p>KIN stops the program until a hex key is pressed. <span class="try"><a href="index.html?load=G-KEYS">Try it</a></span></p>
+
+<h2 id="flags">5. Carry, zero and decisions</h2>
+<p>The only way a program can decide anything is by the two flags. Their LEDs sit next to the display, so you can watch them.</p>
+<table>
+<tr><th>After…</th><th>Carry is set when…</th><th>Zero is set when…</th></tr>
+<tr><td>ADD, ADDI, ADC</td><td>the sum went past F</td><td>the result is 0</td></tr>
+<tr><td>SUB, SUBI, SUBC</td><td>the result went below 0 (a borrow)</td><td>the result is 0</td></tr>
+<tr><td>CMP s,d</td><td>register s is smaller than register d</td><td>they are equal</td></tr>
+<tr><td>CMPI n,d</td><td>register d is greater than n</td><td>register d equals n</td></tr>
+<tr><td>SHR, SHL</td><td>the bit shifted out was 1</td><td>the result is 0</td></tr>
+<tr><td>AND, ANDI, OR, INV</td><td>(always cleared)</td><td>the result is 0</td></tr>
+<tr><td>MOV, MOVI</td><td>(left as it was)</td><td>the value is 0</td></tr>
+</table>
+<p>A result that goes past F simply wraps round: 9 + 9 leaves 2 with carry set (18 = 16 + 2), and 3 − 5 leaves E with carry set.</p>
+<h3>A decimal counter</h3>
+<pre>00 F20  DISP 2,0   show registers 1 and 0 as tens and units
+01 B10  CALL 10    wait
+02 510  ADDI 1,0   units + 1
+03 9A0  CMPI A,0   have the units reached ten?
+04 E06  BRZ 06     yes: carry over
+05 C01  GOTO 01
+06 100  MOVI 0,0   units := 0
+07 511  ADDI 1,1   tens + 1
+08 9A1  CMPI A,1   have the tens reached ten?
+09 E0B  BRZ 0B
+0A C01  GOTO 01
+0B 101  MOVI 0,1   tens := 0
+0C C01  GOTO 01</pre>
+<p>A register happily counts to F, so a decimal counter has to notice the ten itself and carry over by hand. Compare, then branch on the flag: that pair
+is the pattern behind every decision. Note that DISP 2,0 puts register 0 at the right and register 1 to its left. <span class="try"><a href="index.html?load=G-DECIMAL">Try it</a></span></p>
+<h3>Dice</h3>
+<pre>00 F1D  DISP 1,D
+01 FF0  KIN 0      wait for any key
+02 F05  RND        random digits into D, E, F
+03 95D  CMPI 5,D   is D greater than 5?
+04 D02  BRC 02     yes: try again
+05 51D  ADDI 1,D   0–5 becomes 1–6
+06 C01  GOTO 01</pre>
+<p>Random digits come as 0 to F. Throwing away everything above 5 and adding one gives a fair die. The randomness comes from how long you take to press the key. <span class="try"><a href="index.html?load=G-DICE">Try it</a></span></p>
+
+<h2 id="io">6. Inputs and outputs</h2>
+<figure><img src="img/guide-board.png" alt="The computer board" width="877" height="636" style="max-width:70%">
+<figcaption>The terminal strip of the computer board: outputs 1–4 with their LEDs, the reset key, inputs 1–4, the 1 Hz clock.</figcaption></figure>
+<p><b>DOT d</b> puts the four bits of register d on outputs 1 to 4; an LED lights for each 1. <b>DIN d</b> reads inputs 1 to 4 into register d. An input with nothing
+connected reads 0; connecting it to a positive voltage makes it 1.</p>
+<pre>00 F10  DISP 1,0
+01 FD0  DIN 0      inputs to register 0
+02 FE0  DOT 0      register 0 to outputs
+03 C01  GOTO 01</pre>
+<p>In the emulator there are three ways to feed an input: click an input jack to plug in a high level; hold the red keys <b>G</b> and <b>H</b>, which are wired to inputs
+of your choice; or run a patch cable from an output or from the 1&nbsp;Hz clock. <span class="try"><a href="index.html?load=G-INOUT">Try it</a></span></p>
+<p>To test one input, mask the others away: <code>FD0</code> then <code>310</code> (ANDI 1,0) leaves only input 1, and the zero flag tells you whether it is off.</p>
+<h3>The clock</h3>
+<p>The firmware keeps a clock, but it only counts if the 1&nbsp;Hz output is connected to input 4. <b>TIME</b> copies it into registers A to F: seconds in A and B,
+minutes in C and D, hours in E and F.</p>
+<pre>00 F6A  DISP 6,A   show registers F…A
+01 F06  TIME
+02 C01  GOTO 01</pre>
+<p>The clock starts at 00&nbsp;00&nbsp;00 when the machine is switched on; set it with <kbd>PGM</kbd> <kbd>3</kbd>. <span class="try"><a href="index.html?load=G-CLOCK">Try it</a></span></p>
+
+<h2 id="math">7. Decimal numbers and arithmetic</h2>
+<p>One register is one digit, so a longer number is spread over several registers, lowest digit in the lowest register. DISP shows them the right way round.</p>
+<h3>Hex to decimal</h3>
+<p><b>HXDZ</b> takes the hex number in registers F, E, D (D is the lowest digit) and replaces it with its decimal digits. FF becomes 2, 5, 5. A number
+above 999 does not fit: the registers become 0 and the zero flag is set. <b>DZHX</b> goes the other way.</p>
+<pre>00 F08  CLEAR
+01 F2D  DISP 2,D
+02 FF0  KIN 0      first key
+03 FFD  KIN D      second key
+04 10E  MOVI 0,E
+05 10F  MOVI 0,F
+06 40D  ADD 0,D    D := D + register 0
+07 FBE  ADC E      a carry goes into the next digit
+08 F03  HXDZ       hex to decimal
+09 F2D  DISP 2,D
+0A C02  GOTO 02</pre>
+<p>Press 9 and 8 and the display shows 17; F and F give 30. The ADC is how numbers longer than one digit are added: add the low digits, then add the carry
+into the next one. <span class="try"><a href="index.html?load=G-ADD">Try it</a></span></p>
+<h3>MULT and DIV</h3>
+<p>Both work on decimal numbers of up to six digits, one in working registers 0–5 and the other in memory registers 0–5, and leave the result in the working registers.</p>
+<ul>
+<li><b>MULT</b>: working := working × memory.</li>
+<li><b>DIV</b>: the number in the memory registers is divided by the number in the working registers. The quotient lands in the working registers,
+the remainder in the memory registers. The zero flag is set when there <i>is</i> a remainder. DIV handles up to four digits; dividing by zero fills the registers with E and sets carry.</li>
+</ul>
+<pre>00 F08  CLEAR
+01 170  MOVI 7,0
+02 F70  MAS 0      memory register 0 := 7
+03 180  MOVI 8,0   working register 0 := 8
+04 F0B  MULT
+05 F20  DISP 2,0   shows 56
+06 C06  GOTO 06</pre>
+<p>Both are done by the firmware through repeated adding and subtracting, so large numbers take noticeably long. Note that CLEAR clears only the working registers. <span class="try"><a href="index.html?load=G-MULT">Try it</a></span></p>
+
+<h2 id="sub">8. Subroutines and delays</h2>
+<p><b>CALL aa</b> jumps to a piece of program and <b>RET</b> comes back to the instruction after the CALL. Only one return address is remembered, so a subroutine
+cannot call another subroutine. The emulator's Inside panel shows the address RET would return to.</p>
+<p>The Microtronic runs about 60 instructions a second, and there is no wait instruction. A pause is a counting loop:</p>
+<pre>08 18F  MOVI 8,F   start value
+09 51F  ADDI 1,F   count up
+0A D0C  BRC 0C     past F: done
+0B C09  GOTO 09
+0C F07  RET</pre>
+<p>Each round takes three instructions. Starting at 8 gives 8 rounds, about 0.4 seconds; starting at 0 gives 16 rounds, about 0.8 seconds. For longer pauses, nest two
+such loops. Because the machine is this slow, it pays to count instructions in anything that should feel responsive.</p>
+
+<h2 id="sound">9. Sound</h2>
+<p>The Microtronic has no sound of its own. The emulator offers the three add-ons that were used with it:</p>
+<ul>
+<li><b>The piezo buzzer</b>, connected to an output of your choice. It sounds as long as that output is on. A beep is DOT, a pause, DOT with 0.</li>
+<li><b>The tone circuit</b>, a small two-transistor oscillator connected to all four outputs. The value on the outputs sets the pitch: 4 to F give twelve tones,
+0 to 3 give silence. With it, DOT plays a note. The emulator's pitches are tuned so that 4, 6, 8, A and C sound c, d, e, f and g.
+<span class="try"><a href="index.html?load=G-TONES">Try the twelve tones</a></span></li>
+<li><b>PicoRAM 2090 notes.</b> The modern PicoRAM memory expansion plays notes on the instruction <code>50D</code>, followed by octave and note. See the "Sound" programs in the library.</li>
+</ul>
+<p>The <b>Sound off</b> button silences whatever is sounding.</p>
+
+<h2 id="debug">10. Finding mistakes</h2>
+<ul>
+<li><b>Read it back.</b> <kbd>HALT</kbd> <kbd>NEXT</kbd> <kbd>0</kbd> <kbd>0</kbd> and then <kbd>NEXT</kbd> repeatedly shows each address with its instruction.</li>
+<li><b>Single-step.</b> <kbd>STEP</kbd> carries out one instruction at a time; the display shows where you are.</li>
+<li><b>Look at registers.</b> <kbd>REG</kbd> and a register number, at any stop. You can also change the value there.</li>
+<li><b>Breakpoint.</b> <kbd>BKP</kbd> and an address lets the program run at full speed up to that point.</li>
+<li><b>In the emulator</b>, the Inside panel shows all of this at once while the program runs: the current address, both register banks, the flags, inputs and outputs.</li>
+</ul>
+<p>Two classic mistakes: confusing MOV (copy a register) with MOVI (put in a constant), and forgetting that SUB and CMP take their operands in the order shown in the tables above.</p>
+
+<h2 id="pgm">11. Built-in functions</h2>
+<p><kbd>HALT</kbd> <kbd>PGM</kbd> and a digit calls a function that is part of the firmware:</p>
+<table>
+<tr><th>PGM</th><th>Function</th></tr>
+<tr><td class="c">0</td><td>Self-test of display, keys and ports.</td></tr>
+<tr><td class="c">1, 2</td><td>Load from and save to cassette. Not available in the emulator (they wait for the cassette interface; press reset).</td></tr>
+<tr><td class="c">3</td><td>Set the clock: type hours and minutes, then <kbd>HALT</kbd>.</td></tr>
+<tr><td class="c">4</td><td>Show the clock.</td></tr>
+<tr><td class="c">5</td><td>Clear the program memory (every address becomes 000).</td></tr>
+<tr><td class="c">6</td><td>Fill the program memory with NOP (F01).</td></tr>
+<tr><td class="c">7</td><td>Load the built-in game Nim into memory; start it with <kbd>HALT</kbd> <kbd>NEXT</kbd> <kbd>0</kbd> <kbd>0</kbd> <kbd>RUN</kbd>.</td></tr>
+</table>
+
+<h2 id="emu">12. About the emulator</h2>
+<p>The <a href="index.html">emulator</a> runs the Microtronic's original TMS1600 firmware, with the program memory chip, the display, the keypad and the ports
+modelled around it at the level of the individual pins. What it adds for convenience:</p>
+<ul>
+<li><b>Programs</b>: a library, loading and saving <code>.MIC</code> files, and <b>Load &amp; run</b>. Loading a library program also wires up what it needs.</li>
+<li><b>Inside</b>: address, flags, both register banks, inputs, outputs, the return address, and the whole program with instruction names; click a line to change it.</li>
+<li><b>Speed</b>: from a quarter of the original to a hundred times faster.</li>
+<li><b>Wiring</b>: the red keys, the piezo buzzer, the tone circuit, the clock cable and an output-to-input cable.</li>
+</ul>
+<p>A <code>.MIC</code> file is plain text with one three-digit instruction per line; <code>@ 20</code> continues at address 20, and text after <code>#</code> is a comment.</p>
+
+<h2 id="ref">Quick reference</h2>
+<table>
+<tr><th>Code</th><th>Name</th><th>Code</th><th>Name</th><th>Code</th><th>Name</th><th>Code</th><th>Name</th></tr>
+<tr><td class="c">0sd</td><td>MOV</td><td class="c">8sd</td><td>CMP</td><td class="c">F00</td><td>HALT</td><td class="c">F08</td><td>CLEAR</td></tr>
+<tr><td class="c">1nd</td><td>MOVI</td><td class="c">9nd</td><td>CMPI</td><td class="c">F01</td><td>NOP</td><td class="c">F09</td><td>STC</td></tr>
+<tr><td class="c">2sd</td><td>AND</td><td class="c">Asd</td><td>OR</td><td class="c">F02</td><td>DISOUT</td><td class="c">F0A</td><td>RSC</td></tr>
+<tr><td class="c">3nd</td><td>ANDI</td><td class="c">Baa</td><td>CALL</td><td class="c">F03</td><td>HXDZ</td><td class="c">F0B</td><td>MULT</td></tr>
+<tr><td class="c">4sd</td><td>ADD</td><td class="c">Caa</td><td>GOTO</td><td class="c">F04</td><td>DZHX</td><td class="c">F0C</td><td>DIV</td></tr>
+<tr><td class="c">5nd</td><td>ADDI</td><td class="c">Daa</td><td>BRC</td><td class="c">F05</td><td>RND</td><td class="c">F0D</td><td>EXRL</td></tr>
+<tr><td class="c">6sd</td><td>SUB</td><td class="c">Eaa</td><td>BRZ</td><td class="c">F06</td><td>TIME</td><td class="c">F0E</td><td>EXRM</td></tr>
+<tr><td class="c">7nd</td><td>SUBI</td><td class="c">Fnd</td><td>DISP (n = 1–6)</td><td class="c">F07</td><td>RET</td><td class="c">F0F</td><td>EXRA</td></tr>
+<tr><td class="c">F7d</td><td>MAS</td><td class="c">F8d</td><td>INV</td><td class="c">F9d</td><td>SHR</td><td class="c">FAd</td><td>SHL</td></tr>
+<tr><td class="c">FBd</td><td>ADC</td><td class="c">FCd</td><td>SUBC</td><td class="c">FDd</td><td>DIN</td><td class="c">FEd</td><td>DOT</td></tr>
+<tr><td class="c">FFd</td><td>KIN</td><td colspan="6"></td></tr>
+</table>
+<p class="lead">Keys: <kbd>HALT</kbd> <kbd>NEXT</kbd> address · three digits <kbd>NEXT</kbd> stores · <kbd>RUN</kbd> · <kbd>HALT</kbd> · <kbd>STEP</kbd> · <kbd>REG</kbd> register · <kbd>BKP</kbd> address · <kbd>PGM</kbd> digit · <kbd>C/CE</kbd> deletes a digit.</p>
+<p class="lead">Written with Claude Opus 5.5 (Claude Code) for the <a href="https://github.com/lambdamikel/microtronic-emulator">Microtronic emulator</a> by Michael Wessel.
+The Microtronic and its firmware are © Busch GmbH. This guide is an independent description; for the original manuals see the
+<a href="https://lambdamikel.github.io/microtronic-2090-manuals-english/">English translation</a>.</p>
+</main>
+</body>
+</html>

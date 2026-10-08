@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Busch Microtronic 2090 Emulator</title>
-<link rel="stylesheet" href="css/microtronic.css?v=202610071841">
+<link rel="stylesheet" href="css/microtronic.css?v=202610072037">
 </head>
 <body>
 <header>
   <h1>Busch Microtronic 2090</h1>
-  <p>The 1981 educational computer, running its original TMS1600 firmware ROM in your browser.</p>
+  <p>The 1981 educational computer, running its original TMS1600 firmware ROM in your browser. New to it? Read the <a href="guide.html">programmer's guide</a>.</p>
 </header>
 
 <main>
@@ -145,6 +145,7 @@
     <p>Inputs: click an input jack to plug in a high level; click the 1 Hz jack (or use the Patch cable setting) to connect the clock to input 4.</p>
     <p>Enter a program: <b>HALT NEXT 0 0</b>, then three hex digits and <b>NEXT</b> per instruction. Start it: <b>HALT NEXT 0 0 RUN</b>.
        Built in: <b>PGM 7</b> Nim, <b>PGM 5</b> clear memory, <b>PGM 6</b> fill with NOP, <b>PGM 3</b>/<b>4</b> set/show clock, <b>PGM 0</b> self test.</p>
+    <p><b><a href="guide.html">Programmer's guide</a></b>: how to operate and program the Microtronic, every instruction, flags, inputs and outputs, with examples.</p>
     <p>New to the machine? Read the <a href="https://lambdamikel.github.io/microtronic-2090-manuals-english/">Microtronic manuals in English</a>.</p>
   </div>
 </aside>
@@ -177,9 +178,9 @@
   Source: <a href="https://github.com/lambdamikel/microtronic-emulator">github.com/lambdamikel/microtronic-emulator</a> (GPL-3; the firmware ROM remains © Busch).</p>
 </footer>
 
-<script src="js/rom.js?v=202610071841"></script>
-<script src="js/programs.js?v=202610071841"></script>
-<script src="js/tms1600.js?v=202610071841"></script>
-<script src="js/ui.js?v=202610071841"></script>
+<script src="js/rom.js?v=202610072037"></script>
+<script src="js/programs.js?v=202610072037"></script>
+<script src="js/tms1600.js?v=202610072037"></script>
+<script src="js/ui.js?v=202610072037"></script>
 </body>
 </html>

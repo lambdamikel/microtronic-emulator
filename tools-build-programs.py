@@ -37,6 +37,11 @@ for d in sys.argv[1:]:
             text = open(os.path.join(os.path.dirname(f), 'DAYS.MIC')).read() + '\n# ---- addition, from address 51 ----\n' + text
         if name in TITLES: out.append({'name': name, 'title': TITLES[name], 'group': 'From the Busch manuals', 'text': text, **({'setup': WIRING[name]} if name in WIRING else {})})
         elif name in SOUND: out.append({'name': name, 'title': SOUND[name], 'group': 'PicoRAM 2090 sound demos', 'text': text})
+GUIDE = [('G-FIRST', 'First program: show a number', {}), ('G-COUNT', 'Hex counter on display and LEDs', {}), ('G-DECIMAL', 'Decimal counter 00-99', {}),
+         ('G-KEYS', 'Keys to display and LEDs', {}), ('G-ADD', 'Adding two keys, result in decimal', {}), ('G-INOUT', 'Inputs to outputs', {}),
+         ('G-DICE', 'Dice', {}), ('G-MULT', 'Multiplying with MULT', {}), ('G-CLOCK', 'Clock: hours, minutes, seconds', {'clock': 3}),
+         ('G-TONES', 'Tone circuit: twelve tones', {'vib': True})]
+out[:0] = [{'name': n, 'title': t, 'group': 'Examples from the guide', 'setup': su, 'text': open(f'programs/guide/{n}.MIC').read()} for n, t, su in GUIDE]
 VIB = [('ORGAN-LONG', 'Mini organ, long tones'), ('ORGAN-SHORT', 'Mini organ, short tones'), ('COMPOSER', 'The composing computer'),
        ('MUSICBOX', 'Music box: three melodies'), ('LUNAR-SOUND', 'Moon Landing with sound effects')]
 for name, title in VIB:

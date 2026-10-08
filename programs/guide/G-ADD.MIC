@@ -1,0 +1,17 @@
+# Adding two keys, result in decimal
+# Press two hex keys; their sum is shown as a decimal number.
+# An example from the emulator's programmer's guide (guide.html).
+
+@ 00
+
+F08
+F2D
+FF0
+FFD
+10E
+10F
+40D
+FBE
+F03
+F2D
+C02

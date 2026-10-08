@@ -183,3 +183,4 @@ button.jack:hover { box-shadow: 0 0 0 .16cqw #f2c81e; }
 .taster.vibblock span { font-size: .82cqw; color: #555; line-height: 1.05; }
 .taster.vibblock.off { opacity: .45; }
 #tools input[type=range] { flex: 1 1 80px; }
+header a { color: var(--accent); }

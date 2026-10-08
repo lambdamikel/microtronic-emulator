@@ -1,0 +1,13 @@
+const rd = () => disp(20000).s.split('').reverse().join('');
+const D = t => console.log(t.padEnd(30), '[' + rd() + '] pc', m.vmPC.toString(16), m.vmRunning ? 'run' : 'halt', 'work', regs().slice(0, 6));
+m.reset(true); m.run(30000); D('power on');
+keys('HALT'); D('HALT'); keys('NEXT'); D('NEXT'); keys('0'); D('0'); keys('0'); D('0 (addr 00)'); keys('1'); D('1'); keys('2'); D('2'); keys('3'); D('3'); keys('NEXT'); D('NEXT (stored?)'); console.log('   word0', m.readWord(0).toString(16));
+keys('5 1 0 NEXT C 0 1 NEXT'); D('2 more words'); console.log('   words', [0,1,2].map(a => m.readWord(a).toString(16)).join(' '));
+keys('HALT NEXT 0 0'); D('HALT NEXT 00'); keys('NEXT'); D('NEXT browse'); keys('NEXT'); D('NEXT browse');
+keys('1 2'); D('typed 12 (partial)'); keys('CCE'); D('C/CE'); keys('NEXT'); D('NEXT');
+keys('HALT NEXT 0 0 STEP'); D('STEP'); keys('STEP'); D('STEP'); keys('STEP'); D('STEP');
+keys('REG'); D('REG'); keys('0'); D('REG 0'); keys('7'); D('then 7'); keys('NEXT'); D('NEXT in REG'); keys('REG'); D('REG again'); keys('3'); D('3'); keys('A'); D('A');
+keys('HALT'); D('HALT');
+keys('BKP'); D('BKP'); keys('0'); keys('2'); D('BKP 02'); keys('HALT NEXT 0 0 RUN'); m.run(300000); D('RUN with bkp at 02'); keys('RUN'); m.run(300000); D('RUN again'); keys('BKP 0 0'); D('BKP 00'); keys('RUN'); m.run(200000); D('RUN free');
+keys('HALT'); D('HALT'); keys('RUN'); m.run(100000); D('RUN (continue?)');
+keys('HALT PGM'); D('PGM'); keys('7'); m.run(200000); D('PGM 7');
