@@ -1,5 +1,7 @@
 # Busch Microtronic 2090 — browser emulator
 
+#### Project Page: [www.michael-wessel.info/software.html](https://www.michael-wessel.info/software.html#busch-microtronic-2090-browser-emulator)
+
 **Run it: <https://lambdamikel.github.io/microtronic-emulator/>**
 
 ![The emulator: Microtronic console with 2095 cassette interface and 2090 computer board](screenshot.png)
